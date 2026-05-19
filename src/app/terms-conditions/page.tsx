@@ -1,11 +1,14 @@
 ﻿import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { buildPageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions - DPDP Consultants",
-  description: "Terms and Conditions of DPDP Consultants - Read our terms of service.",
-};
+export const metadata: Metadata = buildPageMeta({
+  title: "Terms & Conditions | DPDP Consultants",
+  description: "Terms and Conditions of DPDP Consultants — read our terms of service governing the use of our website and consulting services.",
+  canonicalPath: "/terms-conditions/",
+  noIndex: false,
+});
 
 export default function TermsPage() {
   return (

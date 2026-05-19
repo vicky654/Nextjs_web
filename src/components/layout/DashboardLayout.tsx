@@ -8,7 +8,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { DASHBOARD_NAV_ITEMS, COMPANY_INFO } from "@/lib/constants";
+import { DASHBOARD_NAV_ITEMS } from "@/lib/constants";
 
 interface DashboardLayoutProps {
   children?: React.ReactNode;
@@ -80,10 +80,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <span className="user-role">Client</span>
               </div>
             </div>
-            <button className="btn-logout">
+            <a href="/dashboard/login" className="btn-logout">
               <i className="bi bi-box-arrow-right"></i>
               <span className="d-none d-md-inline">Logout</span>
-            </button>
+            </a>
           </div>
         </header>
 

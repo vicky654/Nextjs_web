@@ -9,7 +9,7 @@ interface ShareButtonsProps {
 
 export default function ShareButtons({ title, url }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
-  const shareUrl = url ?? (typeof window !== 'undefined' ? window.location.href : '');
+  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
 
   const copy = async () => {
     try {

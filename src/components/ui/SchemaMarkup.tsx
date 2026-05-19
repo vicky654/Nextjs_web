@@ -3,10 +3,16 @@ interface SchemaMarkupProps {
 }
 
 export default function SchemaMarkup({ schema }: SchemaMarkupProps) {
+  const schemas = Array.isArray(schema) ? schema : [schema];
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <>
+      {schemas.map((s, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
+        />
+      ))}
+    </>
   );
 }

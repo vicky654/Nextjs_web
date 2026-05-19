@@ -60,7 +60,7 @@ export default function Header() {
             <ul className="navbar-nav mx-auto">
               {NAV_ITEMS.map((item) =>
                 item.children?.length ? (
-                  <li className="nav-item dropdown" key={item.label}>
+                  <li className="nav-item dropdown" key={`dropdown-${item.label}`}>
                     <button
                       className="nav-link dropdown-toggle border-0 bg-transparent"
                       data-bs-toggle="dropdown"
@@ -83,7 +83,7 @@ export default function Header() {
                     </ul>
                   </li>
                 ) : (
-                  <li className="nav-item" key={item.href}>
+                  <li className="nav-item" key={`nav-${item.label}`}>
                     <Link
                       href={item.href}
                       className="nav-link"

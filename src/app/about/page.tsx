@@ -2,11 +2,14 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CTASection from "@/components/sections/CTASection";
+import { buildPageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us - DPDP Consultants",
-  description: "Learn about DPDP Consultants - your trusted partner for data protection and privacy compliance. Our team of experts helps businesses navigate complex regulations.",
-};
+export const metadata: Metadata = buildPageMeta({
+  title: "About DPDP Consultants | Data Protection Experts",
+  description: "Learn about DPDP Consultants — your trusted partner for data protection and privacy compliance. Our certified experts help businesses navigate DPDP Act and GDPR.",
+  keywords: "about DPDP Consultants, data protection consultants, privacy compliance experts, GDPR advisory India",
+  canonicalPath: "/about/",
+});
 
 export default function AboutPage() {
   return (
@@ -101,7 +104,7 @@ export default function AboutPage() {
         <CTASection
           title="Partner with Us"
           description="Ready to strengthen your data protection framework? Let's discuss how we can help your organization."
-          primaryCTA={{ label: "Contact Us", href: "/contact" }}
+          primaryCTA={{ label: "Contact Us", href: "/contact-us/" }}
           secondaryCTA={{ label: "Our Services", href: "/services" }}
         />
       </main>

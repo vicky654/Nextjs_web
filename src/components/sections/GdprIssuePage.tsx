@@ -1,3 +1,7 @@
+import type { ReactNode } from 'react';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Link from 'next/link';
 import PageHero from './PageHero';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildBreadcrumbSchema, buildWebPageSchema } from '@/lib/seo';
@@ -9,7 +13,7 @@ interface GdprIssuePageProps {
   canonicalPath: string;
   description: string;
   points: string[];
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const homeCrumb: BreadcrumbItem = { label: 'Home', href: '/' };
@@ -30,6 +34,8 @@ export default function GdprIssuePage({
   return (
     <>
       <SchemaMarkup schema={[breadcrumbSchema, webPageSchema]} />
+      <Header />
+      <main>
       <PageHero title={title} subtitle={subtitle} breadcrumbs={breadcrumbs} />
       <section className="py-5">
         <div className="container">
@@ -59,14 +65,16 @@ export default function GdprIssuePage({
                 <p className="text-muted small">
                   Our GDPR specialists can help your organisation navigate {title.toLowerCase()} and ensure full compliance.
                 </p>
-                <a href="/contact-us/" className="btn btn-primary w-100">
+                <Link href="/contact-us/" className="btn btn-primary w-100">
                   Talk to an Expert
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </>
   );
 }

@@ -20,7 +20,8 @@ export const COMPANY_INFO = {
 // Navigation Items
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
+  { label: 'About Us', href: '/about/' },
+  { label: 'Services', href: '/services/' },
   {
     label: 'Compliance Tools', href: '#',
     children: [
@@ -50,7 +51,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'GDPR and NGO', href: '/GDPR-and-NGO/' },
     ],
   },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Blog', href: '/blog/' },
   { label: 'Contact', href: '/contact-us/' },
 ];
 
@@ -148,9 +149,10 @@ export const SERVICES: Service[] = [
 export const FOOTER_LINKS = {
   quickLinks: [
     { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'About Us', href: '/about/' },
+    { label: 'Services', href: '/services/' },
+    { label: 'Blog', href: '/blog/' },
+    { label: 'Privacy Policy', href: '/privacy-policy/' },
     { label: 'Contact', href: '/contact-us/' },
   ],
   services: [

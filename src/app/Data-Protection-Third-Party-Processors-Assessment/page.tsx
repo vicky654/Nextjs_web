@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import PageHero from '@/components/sections/PageHero';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildPageMeta, buildBreadcrumbSchema, buildSoftwareAppSchema } from '@/lib/seo';
@@ -34,6 +37,8 @@ export default function ThirdPartyAssessmentPage() {
   return (
     <>
       <SchemaMarkup schema={[breadcrumbSchema, softwareSchema]} />
+      <Header />
+      <main>
       <PageHero
         title="Third-Party Processors Assessment"
         subtitle="Evaluate and manage all third-party data processors to satisfy GDPR Article 28 requirements."
@@ -78,14 +83,16 @@ export default function ThirdPartyAssessmentPage() {
                 <p className="text-muted small">
                   Build a complete picture of your third-party data processor landscape.
                 </p>
-                <a href="/contact-us/" className="btn btn-primary w-100">
+                <Link href="/contact-us/" className="btn btn-primary w-100">
                   Get in Touch
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </>
   );
 }

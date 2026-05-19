@@ -21,12 +21,12 @@ export async function generateMetadata({
     title: 'Blogs updates on DPDP Act compliance',
     description: 'Explore articles on DPDP Act updates, privacy enforcement, best practices and guides to strengthen compliance.',
     keywords: 'data privacy blogs, compliance insights, DPDP Act updates, data protection tips, privacy compliance trends, expert data regulations advice, best practices for data protection',
-    canonicalPath: pageNum > 1 ? `/blog?page=${pageNum}` : '/blog',
+    canonicalPath: pageNum > 1 ? `/blog/?page=${pageNum}` : '/blog/',
   });
   return {
     ...base,
     alternates: {
-      canonical: pageNum > 1 ? getCanonicalUrl(`/blog?page=${pageNum}`) : getCanonicalUrl('/blog'),
+      canonical: pageNum > 1 ? getCanonicalUrl(`/blog/?page=${pageNum}`) : getCanonicalUrl('/blog/'),
     },
   };
 }

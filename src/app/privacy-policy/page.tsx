@@ -1,11 +1,14 @@
 ﻿import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { buildPageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy - DPDP Consultants",
-  description: "Privacy Policy of DPDP Consultants - Learn how we protect and handle your personal information.",
-};
+export const metadata: Metadata = buildPageMeta({
+  title: "Privacy Policy | DPDP Consultants",
+  description: "Privacy Policy of DPDP Consultants — learn how we collect, use, and protect your personal information in compliance with data protection regulations.",
+  canonicalPath: "/privacy-policy/",
+  noIndex: false,
+});
 
 export default function PrivacyPolicyPage() {
   return (
@@ -25,7 +28,7 @@ export default function PrivacyPolicyPage() {
             <div className="policy-content">
               <h2>Introduction</h2>
               <p>
-                DPDP Consultants ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, used, and disclosed by DPDP Consultants.
+                DPDP Consultants (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, used, and disclosed by DPDP Consultants.
               </p>
 
               <h2>Information We Collect</h2>

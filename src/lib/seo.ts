@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { DbBlogPost, BreadcrumbItem, FAQItem, TOCItem } from '@/types';
+import type { DbBlogPost, BreadcrumbItem, FAQItem } from '@/types';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gdprconsultants.in';
 const SITE_NAME = 'GDPR Consultants';
@@ -96,7 +96,7 @@ export function buildOrgSchema() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/images/logo.png`,
+    logo: `${SITE_URL}/images/og-image.svg`,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
@@ -146,7 +146,7 @@ export function buildArticleSchema(post: DbBlogPost, url: string) {
     datePublished: post.recpub?.toISOString(),
     dateModified: (post.updated_at ?? post.recpub)?.toISOString(),
     author: { '@type': 'Organization', name: post.author ?? SITE_NAME, url: SITE_URL },
-    publisher: { '@type': 'Organization', name: SITE_NAME, logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/logo.png` } },
+    publisher: { '@type': 'Organization', name: SITE_NAME, logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.svg` } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
   };
 }
@@ -188,16 +188,3 @@ export function buildWebPageSchema(page: { title: string; description: string; u
   };
 }
 
-export function extractHeadings(html: string): TOCItem[] {
-  const headings: TOCItem[] = [];
-  const regex = /<h([23])[^>]*\sid="([^"]+)"[^>]*>([\s\S]*?)<\/h[23]>/gi;
-  let match;
-  while ((match = regex.exec(html)) !== null) {
-    headings.push({
-      id: match[2],
-      text: match[3].replace(/<[^>]+>/g, '').trim(),
-      level: Number(match[1]) as 2 | 3,
-    });
-  }
-  return headings;
-}

@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import PageHero from '@/components/sections/PageHero';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildPageMeta, buildBreadcrumbSchema, buildSoftwareAppSchema } from '@/lib/seo';
@@ -34,6 +37,8 @@ export default function ConsentManagementPlatformPage() {
   return (
     <>
       <SchemaMarkup schema={[breadcrumbSchema, softwareSchema]} />
+      <Header />
+      <main>
       <PageHero
         title="Consent Management Platform"
         subtitle="GDPR-compliant consent collection, storage, and lifecycle management for EU data controllers."
@@ -86,14 +91,16 @@ export default function ConsentManagementPlatformPage() {
                 <p className="text-muted small">
                   Deploy a fully GDPR-compliant consent management system tailored to your organisation.
                 </p>
-                <a href="/contact-us/" className="btn btn-primary w-100">
+                <Link href="/contact-us/" className="btn btn-primary w-100">
                   Request a Demo
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </>
   );
 }

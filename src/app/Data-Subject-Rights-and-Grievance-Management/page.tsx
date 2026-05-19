@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import PageHero from '@/components/sections/PageHero';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildPageMeta, buildBreadcrumbSchema, buildSoftwareAppSchema } from '@/lib/seo';
@@ -34,6 +37,8 @@ export default function DataSubjectRightsPage() {
   return (
     <>
       <SchemaMarkup schema={[breadcrumbSchema, softwareSchema]} />
+      <Header />
+      <main>
       <PageHero
         title="Data Subject Rights & Grievance Management"
         subtitle="Manage DSARs and grievances within GDPR timelines with automated workflows and full audit trails."
@@ -79,14 +84,16 @@ export default function DataSubjectRightsPage() {
                 <p className="text-muted small">
                   Automate your data subject rights process and never miss a GDPR response deadline.
                 </p>
-                <a href="/contact-us/" className="btn btn-primary w-100">
+                <Link href="/contact-us/" className="btn btn-primary w-100">
                   Get in Touch
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </>
   );
 }

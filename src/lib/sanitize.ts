@@ -29,7 +29,7 @@ function enforceExternalLinkSecurity(html: string): string {
   return html.replace(
     /<a\s([^>]*href=["'][^"']*["'][^>]*)>/gi,
     (match, attrs) => {
-      if (/rel=/i.test(attrs)) return match;
+      if (/\brel\s*=/i.test(attrs)) return match;
       return `<a ${attrs} rel="noopener noreferrer">`;
     }
   );

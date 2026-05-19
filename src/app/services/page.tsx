@@ -4,11 +4,14 @@ import Footer from "@/components/layout/Footer";
 import ServiceCard from "@/components/sections/ServiceCard";
 import CTASection from "@/components/sections/CTASection";
 import { SERVICES } from "@/lib/constants";
+import { buildPageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services - DPDP Consultants",
-  description: "Explore our comprehensive data protection and privacy consulting services including DPDP compliance, GDPR advisory, and more.",
-};
+export const metadata: Metadata = buildPageMeta({
+  title: "Data Protection Services | DPDP & GDPR Consulting",
+  description: "Explore our comprehensive data protection and privacy consulting services — DPDP compliance, GDPR advisory, DPIA, third-party assessments, and more.",
+  keywords: "data protection services, DPDP compliance consulting, GDPR advisory services, privacy consulting India",
+  canonicalPath: "/services/",
+});
 
 export default function ServicesPage() {
   return (
@@ -45,7 +48,7 @@ export default function ServicesPage() {
         <CTASection
           title="Need Help with Compliance?"
           description="Contact us today to discuss your data protection requirements."
-          primaryCTA={{ label: "Get in Touch", href: "/contact" }}
+          primaryCTA={{ label: "Get in Touch", href: "/contact-us/" }}
           secondaryCTA={{ label: "About Us", href: "/about" }}
         />
       </main>

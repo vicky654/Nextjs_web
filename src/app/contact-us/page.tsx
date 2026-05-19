@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Link from 'next/link';
 import PageHero from '@/components/sections/PageHero';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildPageMeta, buildBreadcrumbSchema, buildOrgSchema } from '@/lib/seo';
@@ -22,6 +25,8 @@ export default function ContactUsPage() {
   return (
     <>
       <SchemaMarkup schema={[breadcrumbSchema, orgSchema]} />
+      <Header />
+      <main>
       <PageHero
         title="Contact GDPR Consultants EU"
         subtitle="Reach our team of GDPR experts for compliance tools, advisory services, and tailored data protection solutions."
@@ -63,7 +68,7 @@ export default function ContactUsPage() {
               <p className="text-muted">
                 Our team of GDPR specialists provides techno-legal expertise across all areas of EU data
                 protection compliance. Whether you need compliance tools, advisory services, or a full
-                GDPR programme, we're here to help.
+                GDPR programme, we&apos;re here to help.
               </p>
               <ul className="list-unstyled mt-3">
                 {[
@@ -84,6 +89,8 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </>
   );
 }

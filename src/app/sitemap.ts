@@ -5,10 +5,13 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gdprconsultant
 
 const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/`, lastModified: new Date(), priority: 1.0, changeFrequency: 'weekly' },
-  { url: `${SITE_URL}/about`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/blog`, priority: 0.9, changeFrequency: 'daily' },
+  { url: `${SITE_URL}/about/`, priority: 0.8, changeFrequency: 'monthly' },
+  { url: `${SITE_URL}/services/`, priority: 0.8, changeFrequency: 'monthly' },
+  { url: `${SITE_URL}/blog/`, priority: 0.9, changeFrequency: 'daily' },
   { url: `${SITE_URL}/contact-us/`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/privacy-policy`, priority: 0.4, changeFrequency: 'yearly' },
+  { url: `${SITE_URL}/privacy-policy/`, priority: 0.4, changeFrequency: 'yearly' },
+  { url: `${SITE_URL}/terms-conditions/`, priority: 0.4, changeFrequency: 'yearly' },
+  { url: `${SITE_URL}/resources/`, priority: 0.7, changeFrequency: 'monthly' },
   // Compliance Tools
   { url: `${SITE_URL}/consent-management-platform/`, priority: 0.8, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/Cookie-Consent-Management/`, priority: 0.8, changeFrequency: 'monthly' },

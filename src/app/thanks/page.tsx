@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: { absolute: 'Thank You | GDPR Consultants' },
@@ -9,7 +11,10 @@ export const metadata: Metadata = {
 
 export default function ThanksPage() {
   return (
-    <section className="py-5 text-center" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
+    <>
+      <Header />
+      <main>
+      <section className="py-5 text-center" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6">
@@ -24,5 +29,8 @@ export default function ThanksPage() {
         </div>
       </div>
     </section>
+    </main>
+    <Footer />
+    </>
   );
 }

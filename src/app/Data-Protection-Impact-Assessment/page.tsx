@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 import PageHero from '@/components/sections/PageHero';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildPageMeta, buildBreadcrumbSchema, buildSoftwareAppSchema } from '@/lib/seo';
@@ -34,6 +37,8 @@ export default function DPIAPage() {
   return (
     <>
       <SchemaMarkup schema={[breadcrumbSchema, softwareSchema]} />
+      <Header />
+      <main>
       <PageHero
         title="Data Protection Impact Assessment"
         subtitle="Structured DPIA workflows to identify, assess, and mitigate data protection risks under GDPR Article 35."
@@ -46,7 +51,7 @@ export default function DPIAPage() {
               <h2 className="h3 mb-3">What is a DPIA?</h2>
               <p>
                 A Data Protection Impact Assessment (DPIA) is a mandatory process under GDPR Article 35 for
-                processing activities that are likely to result in a high risk to individuals' rights and freedoms.
+                processing activities that are likely to result in a high risk to individuals&apos; rights and freedoms.
                 Our DPIA software guides your organisation through every step of this structured process.
               </p>
               <p>
@@ -77,14 +82,16 @@ export default function DPIAPage() {
                 <p className="text-muted small">
                   Our experts guide you through GDPR-compliant impact assessments tailored to your organisation.
                 </p>
-                <a href="/contact-us/" className="btn btn-primary w-100">
+                <Link href="/contact-us/" className="btn btn-primary w-100">
                   Get in Touch
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+      </main>
+      <Footer />
     </>
   );
 }

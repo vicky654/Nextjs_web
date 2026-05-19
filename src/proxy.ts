@@ -9,13 +9,24 @@ export function proxy(request: NextRequest) {
     const id = searchParams.get('id');
     const url = request.nextUrl.clone();
     url.search = '';
-    url.pathname = id ? `/blog/id-${id}` : '/blog';
+    url.pathname = id ? `/blog/id-${id}` : '/blog/';
     return NextResponse.redirect(url, { status: 301 });
+  }
+
+  // Protect all /dashboard/* routes — redirect to login if no session cookie
+  if (pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/login') && !pathname.startsWith('/dashboard/register') && !pathname.startsWith('/dashboard/forgot-password')) {
+    const session = request.cookies.get('session');
+    if (!session) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = '/dashboard/login';
+      loginUrl.search = '';
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/blog.php'],
+  matcher: ['/blog.php', '/dashboard/:path*'],
 };

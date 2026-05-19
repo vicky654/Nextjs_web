@@ -1,4 +1,4 @@
-import { redirect, notFound } from 'next/navigation';
+import { permanentRedirect, notFound } from 'next/navigation';
 import { getBlogById } from '@/lib/blog';
 
 interface Props {
@@ -23,9 +23,9 @@ export default async function BlogByIdPage({ params }: Props) {
 
   // If slug exists, redirect permanently
   if (post.slug) {
-    redirect(`/blog/${post.slug}`);
+    permanentRedirect(`/blog/${post.slug}`);
   }
 
   // No slug yet (pre-migration) — redirect to blog listing
-  redirect('/blog');
+  permanentRedirect('/blog/');
 }
