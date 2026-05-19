@@ -58,22 +58,47 @@ export default function Header() {
             id="navbarNav"
           >
             <ul className="navbar-nav mx-auto">
-              {NAV_ITEMS.map((item) => (
-                <li className="nav-item" key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="nav-link"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) =>
+                item.children?.length ? (
+                  <li className="nav-item dropdown" key={item.label}>
+                    <button
+                      className="nav-link dropdown-toggle border-0 bg-transparent"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {item.label}
+                    </button>
+                    <ul className="dropdown-menu">
+                      {item.children.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            className="dropdown-item"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : (
+                  <li className="nav-item" key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="nav-link"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
 
             {/* CTA Button */}
             <div className="header-cta d-none d-lg-block">
-              <Link href="/contact" className="btn btn-primary">
+              <Link href="/contact-us/" className="btn btn-primary">
                 Get Started
                 <i className="bi bi-arrow-right ms-2"></i>
               </Link>

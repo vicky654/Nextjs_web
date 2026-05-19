@@ -149,15 +149,16 @@ export const FOOTER_LINKS = {
   quickLinks: [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
-    { label: 'Services', href: '/services' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Contact', href: '/contact-us/' },
   ],
   services: [
-    { label: 'DPDP Compliance', href: '/services' },
-    { label: 'GDPR Advisory', href: '/services' },
-    { label: 'Impact Assessment', href: '/services' },
-    { label: 'Third Party Assessment', href: '/services' },
+    { label: 'Consent Management Platform', href: '/consent-management-platform/' },
+    { label: 'Cookie Consent Management', href: '/Cookie-Consent-Management/' },
+    { label: 'Data Protection Impact Assessment', href: '/Data-Protection-Impact-Assessment/' },
+    { label: 'Third Party Assessment', href: '/Data-Protection-Third-Party-Processors-Assessment/' },
+    { label: 'Data Subject Rights & Grievance', href: '/Data-Subject-Rights-and-Grievance-Management/' },
   ],
   legal: [
     { label: 'Privacy Policy', href: '/privacy-policy' },

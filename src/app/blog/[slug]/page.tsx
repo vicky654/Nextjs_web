@@ -27,6 +27,7 @@ import { sanitizeBlogHtml } from '@/lib/sanitize';
 import { formatDate } from '@/lib/utils';
 
 export const revalidate = 3600;
+export const dynamicParams = true; // server-render slugs not in static params
 
 interface Props {
   params: Promise<{ slug: string }>;

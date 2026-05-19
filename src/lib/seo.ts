@@ -3,7 +3,7 @@ import type { DbBlogPost, BreadcrumbItem, FAQItem, TOCItem } from '@/types';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gdprconsultants.in';
 const SITE_NAME = 'GDPR Consultants';
-const DEFAULT_OG_IMAGE = '/images/og-image.jpg';
+const DEFAULT_OG_IMAGE = '/images/og-image.svg';
 const TWITTER_HANDLE = '@gdprconsultants';
 
 export interface PageMetaConfig {

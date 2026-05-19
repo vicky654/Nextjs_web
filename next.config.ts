@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
     includePaths: ["./node_modules", "./src/styles"],
   },
 
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: '**.gdprconsultants.in' },
+      { protocol: 'https', hostname: 'www.gdprconsultants.in' },
+      { protocol: 'http', hostname: 'localhost' },
+    ],
+    unoptimized: process.env.NODE_ENV === 'development',
+  },
+
   async rewrites() {
     return [
       // Existing rewrites
@@ -17,7 +26,8 @@ const nextConfig: NextConfig = {
       { source: "/terms-conditions.php", destination: "/terms-conditions" },
       { source: "/index.php", destination: "/" },
 
-      // Blog (middleware handles blog.php?id= redirects)
+      // Blog (proxy handles blog.php?id= redirects, rewrite handles bare /blog.php)
+      { source: "/blog.php", destination: "/blog" },
       { source: "/blog-page-01.php", destination: "/blog" },
       { source: "/blogs.php", destination: "/blog" },
 
