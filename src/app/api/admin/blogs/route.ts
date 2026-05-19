@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { requireAdminSession } from '@/lib/adminAuth';
 import connectDB from '@/lib/mongodb';
 import BlogPost from '@/models/BlogPost';
@@ -98,6 +99,7 @@ export async function POST(request: Request) {
       is_archived: false,
     });
 
+    revalidateTag('blogs', {});
     return NextResponse.json({ id: doc._id.toString(), slug: doc.slug }, { status: 201 });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Server error';

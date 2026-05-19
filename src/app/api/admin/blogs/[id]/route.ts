@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { requireAdminSession } from '@/lib/adminAuth';
 import connectDB from '@/lib/mongodb';
 import BlogPost from '@/models/BlogPost';
@@ -86,6 +87,7 @@ export async function PUT(request: Request, { params }: Props) {
       },
     });
 
+    revalidateTag('blogs', {});
     return NextResponse.json({ ok: true });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Server error';
@@ -107,6 +109,7 @@ export async function DELETE(_req: Request, { params }: Props) {
     await BlogPost.findByIdAndUpdate(id, {
       $set: { is_archived: true, updated_at: new Date() },
     });
+    revalidateTag('blogs', {});
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: 'DB error' }, { status: 500 });
