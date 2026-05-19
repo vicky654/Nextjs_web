@@ -65,6 +65,7 @@ export default function Header() {
                       className="nav-link dropdown-toggle border-0 bg-transparent"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
+                      style={{ color: 'inherit' }}
                     >
                       {item.label}
                     </button>
@@ -132,28 +133,32 @@ export default function Header() {
         .navbar-brand {
           font-size: 1.5rem;
           font-weight: 700;
-          color: #1e3a5f;
+          color: white;
         }
 
         .logo-text {
-          color: #1e3a5f;
+          color: white;
         }
 
         .logo-highlight {
           color: #00a8cc;
         }
 
-        .scrolled .navbar-brand,
-        .scrolled .logo-text {
+        .header.scrolled .navbar-brand,
+        .header.scrolled .logo-text {
           color: #1e3a5f;
         }
 
         .nav-link {
           font-weight: 500;
-          color: #1e3a5f;
+          color: white;
           padding: 8px 16px !important;
           position: relative;
           transition: color 0.3s ease;
+        }
+
+        .header.scrolled .nav-link {
+          color: #1e3a5f;
         }
 
         .nav-link:hover {
@@ -180,6 +185,14 @@ export default function Header() {
           border: none;
           padding: 8px;
           font-size: 1.5rem;
+          color: white;
+        }
+
+        .header.scrolled .navbar-toggler {
+          color: #1e3a5f;
+        }
+
+        .dropdown-menu .dropdown-item {
           color: #1e3a5f;
         }
 

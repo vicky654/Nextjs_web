@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: '**.gdprconsultants.in' },
       { protocol: 'https', hostname: 'www.gdprconsultants.in' },
       { protocol: 'http', hostname: 'localhost' },
+      { protocol: 'https', hostname: '**' },
     ],
     unoptimized: process.env.NODE_ENV === 'development',
   },

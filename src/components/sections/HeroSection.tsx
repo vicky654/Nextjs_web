@@ -116,6 +116,7 @@ export default function HeroSection({
           display: flex;
           align-items: center;
           overflow: hidden;
+          padding-top: 80px;
         }
 
         .hero-background {

@@ -126,17 +126,17 @@ export default async function BlogPage({
                 <ul className="pagination">
                   {pageNum > 1 && (
                     <li className="page-item">
-                      <Link className="page-link" href={`/blog?page=${pageNum - 1}`}>Previous</Link>
+                      <Link className="page-link" href={`/blog/?page=${pageNum - 1}`}>Previous</Link>
                     </li>
                   )}
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                     <li key={p} className={`page-item${p === pageNum ? ' active' : ''}`}>
-                      <Link className="page-link" href={p === 1 ? '/blog' : `/blog?page=${p}`}>{p}</Link>
+                      <Link className="page-link" href={p === 1 ? '/blog/' : `/blog/?page=${p}`}>{p}</Link>
                     </li>
                   ))}
                   {pageNum < totalPages && (
                     <li className="page-item">
-                      <Link className="page-link" href={`/blog?page=${pageNum + 1}`}>Next</Link>
+                      <Link className="page-link" href={`/blog/?page=${pageNum + 1}`}>Next</Link>
                     </li>
                   )}
                 </ul>

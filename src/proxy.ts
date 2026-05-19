@@ -13,6 +13,17 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
+  // Admin panel protection
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+    const adminSession = request.cookies.get('admin_session');
+    if (!adminSession?.value) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/admin/login';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
+  }
+
   // Protect all /dashboard/* routes — redirect to login if no session cookie
   if (pathname.startsWith('/dashboard') && !pathname.startsWith('/dashboard/login') && !pathname.startsWith('/dashboard/register') && !pathname.startsWith('/dashboard/forgot-password')) {
     const session = request.cookies.get('session');
@@ -28,5 +39,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/blog.php', '/dashboard/:path*'],
+  matcher: ['/blog.php', '/dashboard/:path*', '/admin/:path*'],
 };

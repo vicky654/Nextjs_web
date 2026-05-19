@@ -163,9 +163,9 @@ export const FOOTER_LINKS = {
     { label: 'Data Subject Rights & Grievance', href: '/Data-Subject-Rights-and-Grievance-Management/' },
   ],
   legal: [
-    { label: 'Privacy Policy', href: '/privacy-policy' },
-    { label: 'Terms & Conditions', href: '/terms-conditions' },
-    { label: 'Cookie Policy', href: '/cookie-policy' },
+    { label: 'Privacy Policy', href: '/privacy-policy/' },
+    { label: 'Terms & Conditions', href: '/terms-conditions/' },
+    { label: 'Cookie Policy', href: '/cookie-policy/' },
   ],
 };
 
