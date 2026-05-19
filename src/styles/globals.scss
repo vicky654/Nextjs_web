@@ -1,0 +1,191 @@
+/* =========================
+   GOOGLE FONT
+========================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --dpdp-primary: #1e3a5f;
+  --dpdp-primary-dark: #152a45;
+  --dpdp-secondary: #00a8cc;
+  --dpdp-accent: #f4a261;
+
+  --dpdp-white: #ffffff;
+  --dpdp-light: #f8f9fa;
+  --dpdp-gray-600: #6c757d;
+  --dpdp-gray-800: #343a40;
+
+  --dpdp-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --dpdp-radius: 8px;
+}
+
+/* =========================
+   BASE RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #fff;
+  color: var(--dpdp-gray-800);
+  line-height: 1.7;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.7rem; }
+
+@media (max-width:768px){
+  h1 { font-size:2rem }
+  h2 { font-size:1.6rem }
+}
+
+/* =========================
+   BUTTON OVERRIDES
+========================= */
+.btn {
+  border-radius: var(--dpdp-radius);
+  padding: 12px 28px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: var(--dpdp-primary);
+  border-color: var(--dpdp-primary);
+}
+
+.btn-primary:hover {
+  background: var(--dpdp-primary-dark);
+  border-color: var(--dpdp-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+.section {
+  padding: 80px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title .subtitle {
+  color: var(--dpdp-secondary);
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--dpdp-shadow);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* =========================
+   FORMS
+========================= */
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.form-control:focus {
+  border-color: var(--dpdp-primary);
+  box-shadow: 0 0 0 3px rgba(30,58,95,.1);
+}
+
+/* =========================
+   UTILITIES
+========================= */
+.text-primary { color: var(--dpdp-primary) !important; }
+.text-secondary { color: var(--dpdp-secondary) !important; }
+
+.bg-primary { background: var(--dpdp-primary) !important; }
+.bg-light { background: var(--dpdp-light) !important; }
+
+/* =========================
+   SCROLLBAR
+========================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* =========================
+   ANIMATION UTIL
+========================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.6s;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   PAGE HERO (replaces styled-jsx)
+========================= */
+.page-hero,
+.page-header {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8f 50%, #00a8cc 100%);
+  padding: 140px 0 80px;
+  text-align: center;
+  color: #fff;
+
+  h1 { font-size: 3rem; color: #fff; }
+  p { font-size: 1.25rem; opacity: .9; }
+}
+
+.blog-content {
+  h2, h3, h4 { color: var(--dpdp-primary); margin-top: 2rem; margin-bottom: 1rem; }
+  p { margin-bottom: 1.5rem; }
+  ul, ol { padding-left: 1.5rem; margin-bottom: 1.5rem; }
+  li { margin-bottom: .5rem; }
+  img { max-width: 100%; height: auto; border-radius: 8px; }
+  pre { background: #f8f9fa; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+  blockquote { border-left: 4px solid var(--dpdp-secondary); padding-left: 1rem; color: #6c757d; }
+}
+
+.toc-aside {
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
