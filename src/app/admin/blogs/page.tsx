@@ -4,7 +4,7 @@ import AdminLayout from '@/components/layout/AdminLayout';
 import Link from 'next/link';
 
 interface BlogRow {
-  id: number;
+  id: string;
   rectitle: string;
   status: boolean;
   category: string;
@@ -34,7 +34,7 @@ export default function AdminBlogsPage() {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [actionLoading, setActionLoading] = useState<number | null>(null);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   const fetchBlogs = async () => {
     setLoading(true);

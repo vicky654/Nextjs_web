@@ -115,9 +115,9 @@ export interface SEOMetadata {
   };
 }
 
-// DB Blog Post (PostgreSQL)
+// DB Blog Post (MongoDB)
 export interface DbBlogPost {
-  id: number;
+  id: string;
   status: boolean;
   recdate: Date;
   recpub: string | null;

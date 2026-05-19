@@ -1,56 +1,64 @@
-import { pool } from './db';
 import { unstable_cache } from 'next/cache';
 import type { DbBlogPost, TOCItem } from '@/types';
 import { addHeadingIds } from './sanitize';
+import connectDB from './mongodb';
+import BlogPost from '@/models/BlogPost';
 
 const PAGE_LIMIT_MAX = 100;
+
+type RawDoc = { _id: { toString(): string }; [key: string]: unknown };
+
+function mapBlog(doc: RawDoc): DbBlogPost {
+  const { _id, __v, ...rest } = doc;
+  return { id: _id.toString(), ...rest } as unknown as DbBlogPost;
+}
 
 export async function getPublishedBlogs(
   page = 1,
   limit = 10
 ): Promise<{ posts: DbBlogPost[]; total: number }> {
+  await connectDB();
   const safeLimit = Math.min(limit, PAGE_LIMIT_MAX);
-  const offset = (page - 1) * safeLimit;
-  const [rows, countRow] = await Promise.all([
-    pool.query<DbBlogPost>(
-      `SELECT * FROM blogs_gdpr WHERE status = true AND is_archived = false
-       ORDER BY recdate DESC NULLS LAST
-       LIMIT $1 OFFSET $2`,
-      [safeLimit, offset]
-    ),
-    pool.query<{ count: string }>(`SELECT COUNT(*) FROM blogs_gdpr WHERE status = true AND is_archived = false`),
+  const skip = (page - 1) * safeLimit;
+  const filter = { status: true, is_archived: false };
+  const [docs, total] = await Promise.all([
+    BlogPost.find(filter).sort({ recdate: -1 }).skip(skip).limit(safeLimit).lean(),
+    BlogPost.countDocuments(filter),
   ]);
-  return { posts: rows.rows, total: parseInt(countRow.rows[0].count, 10) };
+  return { posts: (docs as unknown as RawDoc[]).map(mapBlog), total };
 }
 
 export async function getBlogBySlug(slug: string): Promise<DbBlogPost | null> {
-  const result = await pool.query<DbBlogPost>(
-    `SELECT * FROM blogs_gdpr WHERE slug = $1 AND status = true LIMIT 1`,
-    [slug]
-  );
-  return result.rows[0] ?? null;
+  await connectDB();
+  const doc = await BlogPost.findOne({ slug, status: true }).lean();
+  return doc ? mapBlog(doc as unknown as RawDoc) : null;
 }
 
-export async function getBlogById(id: number): Promise<DbBlogPost | null> {
-  const result = await pool.query<DbBlogPost>(
-    `SELECT * FROM blogs_gdpr WHERE id = $1 AND status = true LIMIT 1`,
-    [id]
-  );
-  return result.rows[0] ?? null;
+export async function getBlogById(id: string): Promise<DbBlogPost | null> {
+  await connectDB();
+  try {
+    const doc = await BlogPost.findById(id).lean();
+    return doc ? mapBlog(doc as unknown as RawDoc) : null;
+  } catch {
+    return null;
+  }
 }
 
-export async function getAllBlogSlugs(): Promise<{ id: number; slug: string }[]> {
-  const result = await pool.query<{ id: number; slug: string }>(
-    `SELECT id, slug FROM blogs_gdpr WHERE status = true AND slug IS NOT NULL`
-  );
-  return result.rows;
+export async function getAllBlogSlugs(): Promise<{ id: string; slug: string }[]> {
+  await connectDB();
+  const docs = await BlogPost.find(
+    { status: true, slug: { $exists: true, $ne: null } },
+    { _id: 1, slug: 1 }
+  ).lean();
+  return (docs as unknown as RawDoc[]).map((d) => ({
+    id: d._id.toString(),
+    slug: d.slug as string,
+  }));
 }
 
 export async function getBlogCount(): Promise<number> {
-  const result = await pool.query<{ count: string }>(
-    `SELECT COUNT(*) FROM blogs_gdpr WHERE status = true AND is_archived = false`
-  );
-  return parseInt(result.rows[0].count, 10);
+  await connectDB();
+  return BlogPost.countDocuments({ status: true, is_archived: false });
 }
 
 export async function getRelatedBlogs(
@@ -58,39 +66,54 @@ export async function getRelatedBlogs(
   category: string,
   limit = 3
 ): Promise<DbBlogPost[]> {
-  const result = await pool.query<DbBlogPost>(
-    `SELECT * FROM blogs_gdpr
-     WHERE status = true AND slug != $1 AND category = $2 AND is_archived = false
-     ORDER BY recdate DESC NULLS LAST
-     LIMIT $3`,
-    [currentSlug, category, limit]
-  );
-  return result.rows;
+  await connectDB();
+  const docs = await BlogPost.find({
+    status: true,
+    is_archived: false,
+    slug: { $ne: currentSlug },
+    category,
+  })
+    .sort({ recdate: -1 })
+    .limit(limit)
+    .lean();
+  return (docs as unknown as RawDoc[]).map(mapBlog);
 }
 
 export async function getFeaturedBlogs(limit = 5): Promise<DbBlogPost[]> {
-  const result = await pool.query<DbBlogPost>(
-    `SELECT * FROM blogs_gdpr WHERE status = true AND is_featured = true AND is_archived = false
-     ORDER BY recdate DESC NULLS LAST LIMIT $1`,
-    [limit]
-  );
-  return result.rows;
+  await connectDB();
+  const docs = await BlogPost.find({ status: true, is_featured: true, is_archived: false })
+    .sort({ recdate: -1 })
+    .limit(limit)
+    .lean();
+  return (docs as unknown as RawDoc[]).map(mapBlog);
 }
 
 export async function getPrevNextBlog(
-  currentId: number
+  currentId: string
 ): Promise<{ prev: DbBlogPost | null; next: DbBlogPost | null }> {
-  const [prevResult, nextResult] = await Promise.all([
-    pool.query<DbBlogPost>(
-      `SELECT id, slug, rectitle FROM blogs_gdpr WHERE status = true AND id < $1 ORDER BY id DESC LIMIT 1`,
-      [currentId]
-    ),
-    pool.query<DbBlogPost>(
-      `SELECT id, slug, rectitle FROM blogs_gdpr WHERE status = true AND id > $1 ORDER BY id ASC LIMIT 1`,
-      [currentId]
-    ),
-  ]);
-  return { prev: prevResult.rows[0] ?? null, next: nextResult.rows[0] ?? null };
+  await connectDB();
+  try {
+    const current = await BlogPost.findById(currentId, { recdate: 1 }).lean() as unknown as RawDoc | null;
+    if (!current) return { prev: null, next: null };
+
+    const currentDate = current.recdate as Date;
+    const [prevDoc, nextDoc] = await Promise.all([
+      BlogPost.findOne({ status: true, recdate: { $lt: currentDate } })
+        .sort({ recdate: -1 })
+        .select({ _id: 1, slug: 1, rectitle: 1 })
+        .lean(),
+      BlogPost.findOne({ status: true, recdate: { $gt: currentDate } })
+        .sort({ recdate: 1 })
+        .select({ _id: 1, slug: 1, rectitle: 1 })
+        .lean(),
+    ]);
+    return {
+      prev: prevDoc ? mapBlog(prevDoc as unknown as RawDoc) : null,
+      next: nextDoc ? mapBlog(nextDoc as unknown as RawDoc) : null,
+    };
+  } catch {
+    return { prev: null, next: null };
+  }
 }
 
 export function extractHeadingsFromHtml(html: string): TOCItem[] {

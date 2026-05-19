@@ -4,7 +4,7 @@ import AdminLayout from '@/components/layout/AdminLayout';
 import Link from 'next/link';
 
 interface BlogRow {
-  id: number;
+  id: string;
   rectitle: string;
   status: boolean;
   category: string;
@@ -13,7 +13,7 @@ interface BlogRow {
 }
 
 interface ContactRow {
-  id: number;
+  id: string;
   name: string;
   email: string;
   subject: string;

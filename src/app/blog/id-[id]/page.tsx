@@ -1,31 +1,22 @@
 import { permanentRedirect, notFound } from 'next/navigation';
-import { getBlogById } from '@/lib/blog';
+import { getBlogBySlug } from '@/lib/blog';
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-// Permanently redirect /blog/id-123 → /blog/[slug]
+// Legacy /blog/id-[id] route — old PostgreSQL numeric IDs can't be resolved
+// Redirect to blog listing; slug-based routes are canonical
 export default async function BlogByIdPage({ params }: Props) {
   const { id } = await params;
-  const numId = Number(id);
 
-  if (isNaN(numId)) notFound();
-
-  let post = null;
-  try {
-    post = await getBlogById(numId);
-  } catch {
-    notFound();
+  // If the id looks like a slug (not numeric), try slug lookup
+  if (isNaN(Number(id))) {
+    let post = null;
+    try { post = await getBlogBySlug(id); } catch { /* ignore */ }
+    if (post?.slug) permanentRedirect(`/blog/${post.slug}/`);
   }
 
-  if (!post) notFound();
-
-  // If slug exists, redirect permanently
-  if (post.slug) {
-    permanentRedirect(`/blog/${post.slug}`);
-  }
-
-  // No slug yet (pre-migration) — redirect to blog listing
-  permanentRedirect('/blog/');
+  // Numeric IDs are legacy PostgreSQL references — redirect to blog listing
+  notFound();
 }

@@ -24,7 +24,7 @@ function slugify(text: string): string {
 }
 
 interface BlogData {
-  id: number;
+  id: string;
   rectitle: string;
   slug: string;
   summary: string;

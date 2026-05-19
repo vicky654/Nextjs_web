@@ -1,25 +1,25 @@
 import { NextResponse } from 'next/server';
-import { pool } from '@/lib/db';
 import { requireAdminSession } from '@/lib/adminAuth';
+import connectDB from '@/lib/mongodb';
+import ContactSubmission from '@/models/ContactSubmission';
 
 export async function GET() {
   const session = await requireAdminSession();
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
-    await pool.query(`CREATE TABLE IF NOT EXISTS contact_submissions (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      phone TEXT,
-      subject TEXT NOT NULL,
-      message TEXT NOT NULL,
-      submitted_at TIMESTAMPTZ DEFAULT now()
-    )`);
-    const result = await pool.query(
-      'SELECT * FROM contact_submissions ORDER BY submitted_at DESC LIMIT 200'
-    );
-    return NextResponse.json(result.rows);
+    await connectDB();
+    const docs = await ContactSubmission.find({}).sort({ submitted_at: -1 }).limit(200).lean();
+    const rows = docs.map((d) => ({
+      id: (d._id as { toString(): string }).toString(),
+      name: d.name,
+      email: d.email,
+      phone: d.phone,
+      subject: d.subject,
+      message: d.message,
+      submitted_at: d.submitted_at,
+    }));
+    return NextResponse.json(rows);
   } catch {
     return NextResponse.json({ error: 'DB unavailable' }, { status: 503 });
   }
