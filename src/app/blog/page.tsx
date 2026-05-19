@@ -49,8 +49,12 @@ export default async function BlogPage({
     const result = await getCachedBlogs(pageNum, POSTS_PER_PAGE);
     posts = result.posts;
     total = result.total;
-  } catch {
+  } catch (err) {
     dbError = true;
+    console.error('[Blog] DB fetch failed:', err instanceof Error ? err.message : err);
+    if (!process.env.DB_HOST) {
+      console.error('[Blog] Missing env vars: DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, DB_PORT must be set in .env.local');
+    }
   }
 
   const totalPages = Math.ceil(total / POSTS_PER_PAGE);
@@ -75,8 +79,10 @@ export default async function BlogPage({
 
         <section className="py-5">
           <div className="container">
-            {dbError && (
-              <div className="alert alert-warning">Blog posts temporarily unavailable. Please try again shortly.</div>
+            {dbError && process.env.NODE_ENV === 'development' && (
+              <div className="alert alert-warning small">
+                <strong>Dev:</strong> Database not connected. Set <code>DB_HOST</code>, <code>DB_NAME</code>, <code>DB_USER</code>, <code>DB_PASSWORD</code> in <code>.env.local</code>.
+              </div>
             )}
             <div className="row g-4">
               {posts.map((post) => (

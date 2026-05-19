@@ -39,8 +39,8 @@ export default async function HomePage() {
   try {
     const result = await getCachedBlogs(1, 3);
     recentPosts = result.posts;
-  } catch {
-    // DB unavailable — show empty blog section gracefully
+  } catch (err) {
+    console.error('[Home] Blog fetch failed:', err instanceof Error ? err.message : err);
   }
 
   return (

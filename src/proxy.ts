@@ -13,12 +13,12 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
-  // Admin panel protection
-  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+  // Admin panel protection — must use startsWith to handle trailingSlash: true (/admin/login/)
+  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
     const adminSession = request.cookies.get('admin_session');
     if (!adminSession?.value) {
       const url = request.nextUrl.clone();
-      url.pathname = '/admin/login';
+      url.pathname = '/admin/login/';
       url.search = '';
       return NextResponse.redirect(url);
     }

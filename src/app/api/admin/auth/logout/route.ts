@@ -11,7 +11,7 @@ export async function POST() {
     }
     cookieStore.set('admin_session', '', {
       httpOnly: true,
-      path: '/admin',
+      path: '/',
       maxAge: 0,
       sameSite: 'lax',
     });
