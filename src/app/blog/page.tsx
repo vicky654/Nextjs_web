@@ -88,7 +88,7 @@ export default async function BlogPage({
               {posts.map((post) => (
                 <div className="col-md-6 col-lg-4" key={post.id}>
                   <article className="card h-100 border-0 shadow-sm">
-                    {post.recimg && (
+                    {post.recimg?.startsWith('http') && (
                       <div style={{ position: 'relative', height: '200px' }}>
                         <Image
                           src={post.recimg}
@@ -114,7 +114,7 @@ export default async function BlogPage({
                         </p>
                       )}
                       <div className="mt-auto pt-2 d-flex justify-content-between align-items-center small text-muted border-top">
-                        <span><i className="bi bi-calendar3 me-1" />{formatDate(post.recpub ?? post.recdate)}</span>
+                        <span><i className="bi bi-calendar3 me-1" />{formatDate(post.recdate)}</span>
                         {post.read_time && <span><i className="bi bi-clock me-1" />{post.read_time} min</span>}
                       </div>
                     </div>

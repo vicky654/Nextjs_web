@@ -59,7 +59,7 @@ export function buildPageMeta(config: PageMetaConfig): Metadata {
 export function buildBlogMeta(post: DbBlogPost): Metadata {
   const slug = post.slug ?? String(post.id);
   const canonical = getCanonicalUrl(`/blog/${slug}`);
-  const ogImage = post.recimg ? getCanonicalUrl(post.recimg) : getFallbackOGImage();
+  const ogImage = post.recimg?.startsWith('http') ? post.recimg : getFallbackOGImage();
   return {
     title: post.rectitle,
     description: post.metadesc ?? post.summary ?? '',
@@ -73,7 +73,7 @@ export function buildBlogMeta(post: DbBlogPost): Metadata {
       images: [{ url: ogImage, width: 1200, height: 630, alt: post.imgalt ?? post.rectitle }],
       locale: 'en_IN',
       type: 'article',
-      publishedTime: post.recpub?.toISOString(),
+      publishedTime: post.recdate?.toISOString(),
       modifiedTime: post.updated_at?.toISOString(),
       authors: [post.author ?? 'GDPR Consultants'],
       tags: post.tags ?? [],
@@ -136,15 +136,15 @@ export function buildBreadcrumbSchema(items: BreadcrumbItem[]) {
 }
 
 export function buildArticleSchema(post: DbBlogPost, url: string) {
-  const ogImage = post.recimg ? getCanonicalUrl(post.recimg) : getFallbackOGImage();
+  const ogImage = post.recimg?.startsWith('http') ? post.recimg : getFallbackOGImage();
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.rectitle,
     description: post.metadesc ?? post.summary ?? '',
     image: ogImage,
-    datePublished: post.recpub?.toISOString(),
-    dateModified: (post.updated_at ?? post.recpub)?.toISOString(),
+    datePublished: post.recdate?.toISOString(),
+    dateModified: (post.updated_at ?? post.recdate)?.toISOString(),
     author: { '@type': 'Organization', name: post.author ?? SITE_NAME, url: SITE_URL },
     publisher: { '@type': 'Organization', name: SITE_NAME, logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.svg` } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },

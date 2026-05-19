@@ -120,7 +120,7 @@ export interface DbBlogPost {
   id: number;
   status: boolean;
   recdate: Date;
-  recpub: Date;
+  recpub: string | null;
   rectitle: string;
   recdesc: string;
   summary: string | null;

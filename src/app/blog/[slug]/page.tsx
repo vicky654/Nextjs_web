@@ -64,7 +64,7 @@ export default async function BlogDetailPage({ params }: Props) {
   ]);
 
   const canonical = getCanonicalUrl(`/blog/${post.slug}`);
-  const ogImage = post.recimg ? getCanonicalUrl(post.recimg) : undefined;
+  const ogImage = post.recimg?.startsWith('http') ? post.recimg : undefined;
 
   const schemas = [
     buildBreadcrumbSchema([{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.rectitle }]),
@@ -89,7 +89,7 @@ export default async function BlogDetailPage({ params }: Props) {
             <h1 className="display-5 fw-bold mb-3">{post.rectitle}</h1>
             <div className="d-flex justify-content-center gap-4 flex-wrap opacity-75 small">
               <span><i className="bi bi-person me-1" />{post.author ?? 'GDPR Consultants'}</span>
-              <span><i className="bi bi-calendar3 me-1" />{formatDate(post.recpub ?? post.recdate)}</span>
+              <span><i className="bi bi-calendar3 me-1" />{formatDate(post.recdate)}</span>
               {post.read_time && <span><i className="bi bi-clock me-1" />{post.read_time} min read</span>}
             </div>
           </div>

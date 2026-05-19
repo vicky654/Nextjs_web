@@ -14,7 +14,7 @@ export async function getPublishedBlogs(
   const [rows, countRow] = await Promise.all([
     pool.query<DbBlogPost>(
       `SELECT * FROM blogs_gdpr WHERE status = true AND is_archived = false
-       ORDER BY recpub DESC NULLS LAST, recdate DESC
+       ORDER BY recdate DESC NULLS LAST
        LIMIT $1 OFFSET $2`,
       [safeLimit, offset]
     ),
@@ -61,7 +61,7 @@ export async function getRelatedBlogs(
   const result = await pool.query<DbBlogPost>(
     `SELECT * FROM blogs_gdpr
      WHERE status = true AND slug != $1 AND category = $2 AND is_archived = false
-     ORDER BY recpub DESC NULLS LAST
+     ORDER BY recdate DESC NULLS LAST
      LIMIT $3`,
     [currentSlug, category, limit]
   );
@@ -71,7 +71,7 @@ export async function getRelatedBlogs(
 export async function getFeaturedBlogs(limit = 5): Promise<DbBlogPost[]> {
   const result = await pool.query<DbBlogPost>(
     `SELECT * FROM blogs_gdpr WHERE status = true AND is_featured = true AND is_archived = false
-     ORDER BY recpub DESC NULLS LAST LIMIT $1`,
+     ORDER BY recdate DESC NULLS LAST LIMIT $1`,
     [limit]
   );
   return result.rows;
