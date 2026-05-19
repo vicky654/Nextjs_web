@@ -52,9 +52,6 @@ export default async function BlogPage({
   } catch (err) {
     dbError = true;
     console.error('[Blog] DB fetch failed:', err instanceof Error ? err.message : err);
-    if (!process.env.DB_HOST) {
-      console.error('[Blog] Missing env vars: DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, DB_PORT must be set in .env.local');
-    }
   }
 
   const totalPages = Math.ceil(total / POSTS_PER_PAGE);
@@ -67,87 +64,155 @@ export default async function BlogPage({
       <SchemaMarkup schema={breadcrumbSchema} />
       <Header />
       <main>
-        <section
-          className="py-5 text-white text-center"
-          style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a8f 50%, #00a8cc 100%)', paddingTop: '140px' }}
-        >
+        {/* Hero Banner */}
+        <section className="page-hero">
           <div className="container">
-            <h1 className="display-4 fw-bold">Blog</h1>
-            <p className="lead opacity-75">DPDP Act updates, GDPR insights, and data protection best practices</p>
+            <div className="row">
+              <div className="col-lg-8">
+                <span className="subtitle">Latest Insights</span>
+                <h1>Blog &amp; Resources</h1>
+                <p className="lead">
+                  DPDP Act updates, GDPR compliance insights, and data protection best practices from our experts.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="py-5">
+        <section className="section">
           <div className="container">
             {dbError && process.env.NODE_ENV === 'development' && (
-              <div className="alert alert-warning small">
-                <strong>Dev:</strong> Database not connected. Set <code>DB_HOST</code>, <code>DB_NAME</code>, <code>DB_USER</code>, <code>DB_PASSWORD</code> in <code>.env.local</code>.
+              <div className="alert alert-warning small mb-4">
+                <i className="bi bi-exclamation-triangle me-2" />
+                <strong>Dev:</strong> Database not connected. Set <code>MONGODB_URI</code> in <code>.env.local</code>.
               </div>
             )}
-            <div className="row g-4">
-              {posts.map((post) => (
-                <div className="col-md-6 col-lg-4" key={post.id}>
-                  <article className="card h-100 border-0 shadow-sm">
-                    {post.recimg?.startsWith('http') && (
-                      <div style={{ position: 'relative', height: '200px' }}>
-                        <Image
-                          src={post.recimg}
-                          alt={post.imgalt ?? post.rectitle}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                          className="card-img-top rounded-top"
-                        />
-                      </div>
-                    )}
-                    <div className="card-body d-flex flex-column">
-                      {post.category && (
-                        <span className="badge bg-primary mb-2" style={{ width: 'fit-content' }}>{post.category}</span>
-                      )}
-                      <h2 className="h5 card-title">
-                        <Link href={`/blog/${post.slug}`} className="text-decoration-none text-dark stretched-link">
-                          {post.rectitle}
-                        </Link>
-                      </h2>
-                      {post.summary && (
-                        <p className="card-text text-muted small flex-grow-1">
-                          {post.summary.length > 120 ? post.summary.slice(0, 120) + '…' : post.summary}
-                        </p>
-                      )}
-                      <div className="mt-auto pt-2 d-flex justify-content-between align-items-center small text-muted border-top">
-                        <span><i className="bi bi-calendar3 me-1" />{formatDate(post.recdate)}</span>
-                        {post.read_time && <span><i className="bi bi-clock me-1" />{post.read_time} min</span>}
-                      </div>
+
+            {/* Posts Grid */}
+            {posts.length > 0 ? (
+              <>
+                <div className="row g-4">
+                  {posts.map((post) => (
+                    <div className="col-md-6 col-lg-4" key={post.id}>
+                      <article className="card h-100">
+                        {post.recimg?.startsWith('http') && (
+                          <div style={{ position: 'relative', height: '200px' }}>
+                            <Image
+                              src={post.recimg}
+                              alt={post.imgalt ?? post.rectitle}
+                              fill
+                              style={{ objectFit: 'cover' }}
+                              className="card-img-top"
+                            />
+                          </div>
+                        )}
+                        {!post.recimg?.startsWith('http') && (
+                          <div
+                            style={{
+                              height: '8px',
+                              background: 'linear-gradient(90deg, #1e3a5f, #00a8cc)',
+                            }}
+                          />
+                        )}
+                        <div className="card-body d-flex flex-column p-4">
+                          {post.category && (
+                            <span
+                              className="badge mb-3"
+                              style={{
+                                background: 'rgba(30,58,95,0.08)',
+                                color: '#1e3a5f',
+                                width: 'fit-content',
+                                fontSize: '0.7rem',
+                                fontWeight: 600,
+                                letterSpacing: '0.5px',
+                                textTransform: 'uppercase',
+                                padding: '0.4em 0.8em',
+                                borderRadius: '4px',
+                              }}
+                            >
+                              {post.category}
+                            </span>
+                          )}
+                          <h2 className="h5 card-title mb-2" style={{ lineHeight: 1.4 }}>
+                            <Link
+                              href={`/blog/${post.slug}/`}
+                              className="stretched-link text-decoration-none"
+                              style={{ color: '#1e3a5f' }}
+                            >
+                              {post.rectitle}
+                            </Link>
+                          </h2>
+                          {post.summary && (
+                            <p className="card-text small text-muted flex-grow-1" style={{ lineHeight: 1.65 }}>
+                              {post.summary.length > 130 ? post.summary.slice(0, 130) + '…' : post.summary}
+                            </p>
+                          )}
+                          <div
+                            className="mt-auto pt-3 d-flex justify-content-between align-items-center small text-muted"
+                            style={{ borderTop: '1px solid #e2e8f0' }}
+                          >
+                            <span>
+                              <i className="bi bi-calendar3 me-1" />
+                              {formatDate(post.recdate)}
+                            </span>
+                            {post.read_time && (
+                              <span>
+                                <i className="bi bi-clock me-1" />
+                                {post.read_time} min
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </article>
                     </div>
-                  </article>
-                </div>
-              ))}
-
-              {posts.length === 0 && !dbError && (
-                <div className="col-12 text-center text-muted py-5">No posts found.</div>
-              )}
-            </div>
-
-            {totalPages > 1 && (
-              <nav className="d-flex justify-content-center mt-5" aria-label="Blog pagination">
-                <ul className="pagination">
-                  {pageNum > 1 && (
-                    <li className="page-item">
-                      <Link className="page-link" href={`/blog/?page=${pageNum - 1}`}>Previous</Link>
-                    </li>
-                  )}
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                    <li key={p} className={`page-item${p === pageNum ? ' active' : ''}`}>
-                      <Link className="page-link" href={p === 1 ? '/blog/' : `/blog/?page=${p}`}>{p}</Link>
-                    </li>
                   ))}
-                  {pageNum < totalPages && (
-                    <li className="page-item">
-                      <Link className="page-link" href={`/blog/?page=${pageNum + 1}`}>Next</Link>
-                    </li>
-                  )}
-                </ul>
-              </nav>
-            )}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <nav className="d-flex justify-content-center mt-5" aria-label="Blog pagination">
+                    <ul className="pagination">
+                      {pageNum > 1 && (
+                        <li className="page-item">
+                          <Link className="page-link" href={`/blog/?page=${pageNum - 1}`}>
+                            <i className="bi bi-chevron-left" />
+                          </Link>
+                        </li>
+                      )}
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                        <li key={p} className={`page-item${p === pageNum ? ' active' : ''}`}>
+                          <Link className="page-link" href={p === 1 ? '/blog/' : `/blog/?page=${p}`}>
+                            {p}
+                          </Link>
+                        </li>
+                      ))}
+                      {pageNum < totalPages && (
+                        <li className="page-item">
+                          <Link className="page-link" href={`/blog/?page=${pageNum + 1}`}>
+                            <i className="bi bi-chevron-right" />
+                          </Link>
+                        </li>
+                      )}
+                    </ul>
+                  </nav>
+                )}
+              </>
+            ) : !dbError ? (
+              /* Premium empty state */
+              <div className="empty-state">
+                <div className="empty-state-icon">
+                  <i className="bi bi-newspaper" />
+                </div>
+                <h3>No Posts Yet</h3>
+                <p>
+                  We&apos;re working on insightful content about data protection, DPDP Act compliance, and privacy best practices. Check back soon.
+                </p>
+                <Link href="/" className="btn btn-primary">
+                  <i className="bi bi-house me-2" />
+                  Back to Home
+                </Link>
+              </div>
+            ) : null}
           </div>
         </section>
       </main>

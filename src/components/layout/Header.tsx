@@ -211,21 +211,40 @@ export default function Header() {
             left: 0;
             right: 0;
             background: white;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 16px 20px 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border-top: 1px solid #e2e8f0;
             display: none;
+            border-radius: 0 0 12px 12px;
           }
 
           .navbar-collapse.show {
             display: block;
           }
 
+          /* Force dark text on white mobile menu background */
+          .navbar-collapse .nav-link {
+            color: #1e3a5f !important;
+          }
+
+          .navbar-collapse .nav-link:hover {
+            color: #00a8cc !important;
+          }
+
           .navbar-nav {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
           }
 
           .nav-item {
-            margin: 5px 0;
+            margin: 2px 0;
+          }
+
+          .dropdown-menu {
+            box-shadow: none;
+            border: none;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 4px 0;
           }
         }
       `}</style>
