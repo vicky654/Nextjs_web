@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/layout/AdminLayout';
 
 interface ContactRow {
-  id: number;
+  id: string;
   name: string;
   email: string;
   phone: string | null;
@@ -13,23 +14,30 @@ interface ContactRow {
 }
 
 export default function AdminContactsPage() {
+  const router = useRouter();
   const [contacts, setContacts] = useState<ContactRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/admin/contacts')
-      .then((r) => r.json())
-      .then((data) => {
+    const load = async () => {
+      try {
+        const r = await fetch('/api/admin/contacts');
+        if (r.status === 401) { router.replace('/admin/login/'); return; }
+        const data = await r.json();
         if (Array.isArray(data)) setContacts(data);
         else setError(data.error ?? 'Failed to load contacts');
-      })
-      .catch(() => setError('Network error loading contacts'))
-      .finally(() => setLoading(false));
-  }, []);
+      } catch {
+        setError('Network error loading contacts');
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [router]);
 
-  const toggleExpand = (id: number) => {
+  const toggleExpand = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
   };
 

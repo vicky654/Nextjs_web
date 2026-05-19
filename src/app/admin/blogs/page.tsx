@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/layout/AdminLayout';
 import Link from 'next/link';
 
@@ -29,6 +30,7 @@ interface BlogRow {
 const PAGE_SIZE = 20;
 
 export default function AdminBlogsPage() {
+  const router = useRouter();
   const [blogs, setBlogs] = useState<BlogRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -36,11 +38,12 @@ export default function AdminBlogsPage() {
   const [page, setPage] = useState(1);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
       const res = await fetch('/api/admin/blogs');
+      if (res.status === 401) { router.replace('/admin/login/'); return; }
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'Failed to load');
       setBlogs(data);
@@ -49,11 +52,11 @@ export default function AdminBlogsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
   useEffect(() => {
     fetchBlogs();
-  }, []);
+  }, [fetchBlogs]);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return blogs;

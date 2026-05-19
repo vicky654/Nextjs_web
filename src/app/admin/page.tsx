@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/layout/AdminLayout';
 import Link from 'next/link';
 
@@ -21,24 +22,40 @@ interface ContactRow {
 }
 
 export default function AdminDashboard() {
+  const router = useRouter();
   const [blogs, setBlogs] = useState<BlogRow[]>([]);
   const [contacts, setContacts] = useState<ContactRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [dbError, setDbError] = useState(false);
 
   useEffect(() => {
-    Promise.all([
-      fetch('/api/admin/blogs').then((r) => r.json()),
-      fetch('/api/admin/contacts').then((r) => r.json()),
-    ])
-      .then(([b, c]) => {
+    const fetchData = async () => {
+      try {
+        const [bRes, cRes] = await Promise.all([
+          fetch('/api/admin/blogs'),
+          fetch('/api/admin/contacts'),
+        ]);
+
+        // 401 means session expired or not logged in — redirect to login
+        if (bRes.status === 401 || cRes.status === 401) {
+          router.replace('/admin/login/');
+          return;
+        }
+
+        const [b, c] = await Promise.all([bRes.json(), cRes.json()]);
+
         if (Array.isArray(b)) setBlogs(b.slice(0, 100));
         else setDbError(true);
+
         if (Array.isArray(c)) setContacts(c.slice(0, 5));
-      })
-      .catch(() => setDbError(true))
-      .finally(() => setLoading(false));
-  }, []);
+      } catch {
+        setDbError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [router]);
 
   const published = blogs.filter((b) => b.status).length;
   const drafts = blogs.filter((b) => !b.status).length;
@@ -69,7 +86,8 @@ export default function AdminDashboard() {
       {dbError && (
         <div className="alert alert-warning small">
           <i className="bi bi-exclamation-triangle me-2" />
-          Database unavailable. Make sure DB env vars are configured.
+          Could not load data from the database. Check that{' '}
+          <code>MONGODB_URI</code> is set in <code>.env.local</code> and restart the server.
         </div>
       )}
 
