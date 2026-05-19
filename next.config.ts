@@ -1,6 +1,13 @@
+import path from 'path';
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
+
+  trailingSlash: true,
+
   sassOptions: {
     includePaths: ["./node_modules", "./src/styles"],
   },
@@ -26,8 +33,7 @@ const nextConfig: NextConfig = {
       { source: "/terms-conditions.php", destination: "/terms-conditions" },
       { source: "/index.php", destination: "/" },
 
-      // Blog (proxy handles blog.php?id= redirects, rewrite handles bare /blog.php)
-      { source: "/blog.php", destination: "/blog" },
+      // Blog (proxy.ts handles all /blog.php requests including ?id= redirects)
       { source: "/blog-page-01.php", destination: "/blog" },
       { source: "/blogs.php", destination: "/blog" },
 

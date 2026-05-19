@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Thank You | GDPR Consultants',
+  title: { absolute: 'Thank You | GDPR Consultants' },
   description: 'Thank you for contacting GDPR Consultants. We will be in touch shortly.',
   robots: { index: false, follow: true },
 };

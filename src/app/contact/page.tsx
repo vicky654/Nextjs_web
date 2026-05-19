@@ -1,23 +1,6 @@
-import type { Metadata } from "next";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import ContactForm from "@/components/ContactForm";
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: "Contact Us - DPDP Consultants",
-};
-
+// Permanently redirect /contact → /contact-us/ for SEO canonical consolidation
 export default function ContactPage() {
-  return (
-    <>
-      <Header />
-
-      <main className="container py-5">
-        <h1>Contact</h1>
-        <ContactForm />
-      </main>
-
-      <Footer />
-    </>
-  );
+  redirect('/contact-us/');
 }
