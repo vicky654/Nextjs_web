@@ -8,7 +8,7 @@ interface NavbarMegaMenuProps {
 }
 
 const variants = {
-  hidden: { opacity: 0, y: -8, scale: 0.97 },
+  hidden: { opacity: 0, y: -10, scale: 0.96 },
   visible: { opacity: 1, y: 0, scale: 1 },
 };
 
@@ -55,30 +55,31 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           </div>
         ))}
       </div>
+
       <style jsx>{`
         .nav-mega {
           position: absolute;
-          top: calc(100% + 6px);
-          /* Align right edge to prevent going off-screen */
+          top: calc(100% + 8px);
           right: -20px;
           left: auto;
           width: 640px;
           max-width: calc(100vw - 32px);
-          background: rgba(6, 11, 26, 0.99);
-          border: 1px solid rgba(255, 255, 255, 0.09);
-          border-radius: 16px;
+          background: rgba(10, 15, 28, 0.98);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 18px;
           overflow: hidden;
           box-shadow:
-            0 28px 80px rgba(0, 0, 0, 0.65),
-            0 4px 20px rgba(0, 0, 0, 0.4),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+            0 4px 6px rgba(0, 0, 0, 0.05),
+            0 20px 64px rgba(0, 0, 0, 0.55),
+            0 40px 100px rgba(0, 0, 0, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.04);
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           z-index: 1001;
         }
         .nav-mega__header {
           padding: 14px 18px 10px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
         .nav-mega__title {
           display: block;
@@ -86,7 +87,7 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           font-weight: 700;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #3b82f6;
+          color: #60a5fa;
         }
         .nav-mega__sub {
           display: block;
@@ -114,10 +115,11 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           outline: none;
         }
         .nav-mega__item:hover {
-          background: rgba(59, 130, 246, 0.09);
+          background: rgba(255, 255, 255, 0.06);
         }
         .nav-mega__item:focus-visible {
-          background: rgba(59, 130, 246, 0.12);
+          background: rgba(255, 255, 255, 0.08);
+          outline: 2px solid rgba(59, 130, 246, 0.5);
         }
         .nav-mega__icon {
           display: flex;

@@ -21,22 +21,23 @@ export default function NavbarLogo() {
         <span className="nav-logo__brand">DPDP</span>
         <span className="nav-logo__sub">Consultants</span>
       </div>
+
       <style jsx>{`
         .nav-logo {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 9px;
           text-decoration: none;
           flex-shrink: 0;
           outline: none;
         }
         .nav-logo:focus-visible {
-          outline: 2px solid rgba(59, 130, 246, 0.7);
+          outline: 2px solid rgba(59, 130, 246, 0.6);
           border-radius: 6px;
         }
         .nav-logo__icon {
-          width: 38px;
-          height: 38px;
+          width: 34px;
+          height: 34px;
           flex-shrink: 0;
           display: flex;
           align-items: center;
@@ -53,19 +54,20 @@ export default function NavbarLogo() {
           gap: 3px;
         }
         .nav-logo__brand {
-          font-size: 1.05rem;
+          font-size: 1rem;
           font-weight: 800;
           letter-spacing: 0.08em;
-          background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+          background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
+        /* #64748b works on both the white pill AND the dark mobile drawer */
         .nav-logo__sub {
-          font-size: 0.58rem;
-          font-weight: 500;
+          font-size: 0.56rem;
+          font-weight: 600;
           letter-spacing: 0.18em;
-          color: rgba(255, 255, 255, 0.4);
+          color: #64748b;
           text-transform: uppercase;
         }
       `}</style>

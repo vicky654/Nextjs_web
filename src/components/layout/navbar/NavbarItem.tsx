@@ -69,7 +69,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
       )}
 
       <style jsx>{`
-        /* li fills full header height so top:100% == header bottom */
+        /* li fills full pill height via align-self:stretch inherited from flex parent */
         .nav-item {
           position: relative;
           list-style: none;
@@ -78,56 +78,57 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           align-self: stretch;
         }
 
-        /* Plain link */
+        /* Plain nav link — dark text on white pill */
         .nav-link {
           display: flex;
           align-items: center;
           height: 100%;
-          padding: 0 13px;
+          padding: 0 12px;
           font-size: 0.875rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.78);
+          color: #475569;
           text-decoration: none;
           border-radius: 0;
           transition: color 0.15s ease, background 0.15s ease;
           outline: none;
           white-space: nowrap;
-          letter-spacing: 0.01em;
+          letter-spacing: -0.01em;
         }
         .nav-link:hover {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.06);
+          color: #0f172a;
+          background: rgba(0, 0, 0, 0.04);
         }
         .nav-link:focus-visible {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.08);
-          outline: 2px solid rgba(59, 130, 246, 0.5);
+          color: #0f172a;
+          background: rgba(0, 0, 0, 0.05);
+          outline: 2px solid rgba(37, 99, 235, 0.5);
           border-radius: 6px;
         }
         .nav-link--active {
-          color: #60a5fa;
+          color: #2563eb;
+          font-weight: 600;
         }
         .nav-link--active::after {
           content: '';
           position: absolute;
-          bottom: 0;
-          left: 13px;
-          right: 13px;
+          bottom: 10px;
+          left: 12px;
+          right: 12px;
           height: 2px;
-          background: linear-gradient(90deg, #3b82f6, #06b6d4);
-          border-radius: 2px 2px 0 0;
+          background: linear-gradient(90deg, #2563eb, #0891b2);
+          border-radius: 2px;
         }
 
-        /* Dropdown trigger button */
+        /* Dropdown trigger button — dark text on white pill */
         .nav-trigger {
           display: flex;
           align-items: center;
-          gap: 4px;
+          gap: 3px;
           height: 100%;
-          padding: 0 13px;
+          padding: 0 12px;
           font-size: 0.875rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.78);
+          color: #475569;
           background: transparent;
           border: none;
           cursor: pointer;
@@ -135,30 +136,38 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           transition: color 0.15s ease, background 0.15s ease;
           outline: none;
           white-space: nowrap;
-          letter-spacing: 0.01em;
+          letter-spacing: -0.01em;
         }
         .nav-trigger:hover {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.06);
+          color: #0f172a;
+          background: rgba(0, 0, 0, 0.04);
         }
         .nav-item--open .nav-trigger {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.07);
+          color: #0f172a;
+          background: rgba(0, 0, 0, 0.05);
         }
         .nav-trigger:focus-visible {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.08);
-          outline: 2px solid rgba(59, 130, 246, 0.5);
+          color: #0f172a;
+          background: rgba(0, 0, 0, 0.05);
+          outline: 2px solid rgba(37, 99, 235, 0.5);
           border-radius: 6px;
         }
         .nav-trigger--active {
-          color: #60a5fa;
+          color: #2563eb;
+          font-weight: 600;
         }
+
         .nav-trigger__caret {
           display: flex;
           align-items: center;
-          color: rgba(255, 255, 255, 0.38);
+          color: rgba(0, 0, 0, 0.3);
           flex-shrink: 0;
+          margin-top: 1px;
+          transition: color 0.15s ease;
+        }
+        .nav-trigger:hover .nav-trigger__caret,
+        .nav-item--open .nav-trigger__caret {
+          color: rgba(0, 0, 0, 0.55);
         }
       `}</style>
     </li>

@@ -8,7 +8,7 @@ interface NavbarDropdownProps {
 }
 
 const variants = {
-  hidden: { opacity: 0, y: -6, scale: 0.97 },
+  hidden: { opacity: 0, y: -8, scale: 0.96 },
   visible: { opacity: 1, y: 0, scale: 1 },
 };
 
@@ -21,7 +21,7 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
       initial="hidden"
       animate="visible"
       exit="hidden"
-      transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
     >
       {items.map((item) => {
         const Icon = item.icon;
@@ -46,22 +46,23 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
           </Link>
         );
       })}
+
       <style jsx>{`
-        /* Positioned relative to the <li> which now fills the full header height */
         .nav-dd {
           position: absolute;
-          top: calc(100% + 6px);
+          top: calc(100% + 8px);
           left: 50%;
           transform: translateX(-50%);
           min-width: 320px;
-          background: rgba(6, 11, 26, 0.99);
-          border: 1px solid rgba(255, 255, 255, 0.09);
-          border-radius: 14px;
+          background: rgba(10, 15, 28, 0.98);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
           padding: 6px;
           box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.6),
-            0 4px 16px rgba(0, 0, 0, 0.4),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+            0 4px 6px rgba(0, 0, 0, 0.05),
+            0 16px 48px rgba(0, 0, 0, 0.5),
+            0 32px 80px rgba(0, 0, 0, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.04);
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           z-index: 1001;
@@ -72,16 +73,17 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
           align-items: flex-start;
           gap: 11px;
           padding: 10px 12px;
-          border-radius: 9px;
+          border-radius: 10px;
           text-decoration: none;
           transition: background 0.13s ease;
           outline: none;
         }
         .nav-dd__item:hover {
-          background: rgba(59, 130, 246, 0.09);
+          background: rgba(255, 255, 255, 0.06);
         }
         .nav-dd__item:focus-visible {
-          background: rgba(59, 130, 246, 0.12);
+          background: rgba(255, 255, 255, 0.08);
+          outline: 2px solid rgba(59, 130, 246, 0.5);
         }
         .nav-dd__icon {
           display: flex;
@@ -104,7 +106,7 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
         .nav-dd__label {
           font-size: 0.875rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgba(255, 255, 255, 0.92);
           line-height: 1.3;
         }
         .nav-dd__desc {
