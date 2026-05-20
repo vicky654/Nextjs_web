@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/globals.scss";
+import "@/styles/home.css";
 import  BootstrapClient  from "./BootstrapClient";
 
 export const metadata: Metadata = {

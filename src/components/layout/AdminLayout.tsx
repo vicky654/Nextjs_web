@@ -19,6 +19,8 @@ export default function AdminLayout({ children }: Props) {
     { label: 'Dashboard', href: '/admin', icon: 'bi-grid' },
     { label: 'Blog Posts', href: '/admin/blogs', icon: 'bi-file-text' },
     { label: 'Contacts', href: '/admin/contacts', icon: 'bi-envelope' },
+    { label: 'Team Members', href: '/admin/teams', icon: 'bi-people' },
+    { label: 'Client Logos', href: '/admin/client-logos', icon: 'bi-building' },
   ];
 
   const isActive = (href: string) =>
