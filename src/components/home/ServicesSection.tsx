@@ -72,7 +72,11 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
+                whileHover={{ y: -6 }}
+                transition={{
+                  opacity: { delay: i * 0.07, duration: 0.6, ease: 'easeOut' },
+                  y: { type: 'spring', stiffness: 350, damping: 22 },
+                }}
                 className="hp-glass-card"
                 style={{ padding: '1.75rem' }}>
 

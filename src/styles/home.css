@@ -24,57 +24,93 @@
   --hp-gradient-primary: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 100%);
   --hp-gradient-dark: linear-gradient(180deg, #0a0f1a 0%, #0f172a 100%);
   --hp-gradient-hero: linear-gradient(135deg, #0a0f1a 0%, #0d2137 40%, #1a3a5c 100%);
+  /* Animation easing tokens */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* Keyframes */
+/* ─── Keyframes ──────────────────────────────────────────────────── */
+
 @keyframes hp-float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-12px) rotate(1deg); }
-  66% { transform: translateY(-6px) rotate(-1deg); }
+  33%       { transform: translateY(-12px) rotate(1deg); }
+  66%       { transform: translateY(-6px) rotate(-1deg); }
 }
 
 @keyframes hp-float-slow {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  50%       { transform: translateY(-20px); }
 }
 
 @keyframes hp-pulse-glow {
   0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+  50%       { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
 }
 
 @keyframes hp-marquee {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 @keyframes hp-spin-slow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @keyframes hp-counter {
   from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Smooth sliding shimmer for gradient text */
 @keyframes hp-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
-/* Grid dots pattern for sections */
+/* Breathing pulse for live-status dots */
+@keyframes hp-dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 0 5px rgba(16, 185, 129, 0);
+  }
+}
+
+/* Subtle glow sweep for CTA buttons */
+@keyframes hp-btn-shine {
+  0%   { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  40%  { opacity: 0.15; }
+  100% { transform: translateX(250%) skewX(-15deg); opacity: 0; }
+}
+
+/* ─── Grid pattern ───────────────────────────────────────────────── */
+
 .hp-grid-bg {
-  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
-/* Gradient text utility */
+/* ─── Gradient text with slow shimmer ───────────────────────────── */
+
 .hp-gradient-text {
-  background: linear-gradient(135deg, #60a5fa, #06b6d4);
+  background: linear-gradient(
+    90deg,
+    #60a5fa 0%,
+    #38bdf8 20%,
+    #a5b4fc 45%,
+    #60a5fa 65%,
+    #06b6d4 85%,
+    #60a5fa 100%
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: hp-shimmer 6s linear infinite;
 }
 
 .hp-gradient-text-warm {
@@ -84,29 +120,40 @@
   background-clip: text;
 }
 
-/* Glass card */
+/* ─── Glass card ─────────────────────────────────────────────────── */
+
 .hp-glass-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   border-radius: var(--hp-radius);
-  transition: all 0.3s ease;
+  /* GPU-composited properties only — no layout thrashing */
+  transition:
+    transform    0.4s var(--ease-spring),
+    box-shadow   0.4s var(--ease-spring),
+    border-color 0.35s var(--ease-out),
+    background   0.35s var(--ease-out);
+  will-change: transform, box-shadow;
 }
 
 .hp-glass-card:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(59,130,246,0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(59,130,246,0.2);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(59, 130, 246, 0.45);
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(59, 130, 246, 0.2),
+    0 0 48px rgba(59, 130, 246, 0.06);
 }
 
-/* Section header */
+/* ─── Section header badge ───────────────────────────────────────── */
+
 .hp-section-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(59,130,246,0.1);
-  border: 1px solid rgba(59,130,246,0.3);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 100px;
   padding: 5px 14px;
   font-size: 0.78rem;
@@ -117,14 +164,42 @@
   margin-bottom: 1.25rem;
 }
 
-/* Scrollbar for marquee */
+/* ─── Live status dot (hero trust badge) ────────────────────────── */
+
+.hp-live-dot {
+  animation: hp-dot-pulse 2.4s ease-in-out infinite;
+}
+
+/* ─── Premium CTA button (optional shine sweep) ─────────────────── */
+
+.hp-btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.hp-btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  opacity: 0;
+}
+
+.hp-btn-primary:hover::after {
+  animation: hp-btn-shine 0.65s ease forwards;
+}
+
+/* ─── Scrollbar hide for marquee ─────────────────────────────────── */
+
 .hp-logos-track::-webkit-scrollbar { display: none; }
 
-/* Light section variants */
-.hp-section-light {
-  background: #f8fafc;
-  color: #0f172a;
-}
+/* ─── Light section variants ─────────────────────────────────────── */
+
+.hp-section-light { background: #f8fafc; color: #0f172a; }
 
 .hp-section-light .hp-glass-card {
   background: #ffffff;
@@ -135,5 +210,5 @@
 .hp-section-light .hp-glass-card:hover {
   background: #ffffff;
   border-color: #3b82f6;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(59,130,246,0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(59, 130, 246, 0.3);
 }

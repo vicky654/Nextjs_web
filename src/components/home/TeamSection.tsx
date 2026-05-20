@@ -43,7 +43,12 @@ export default function TeamSection({ members }: TeamSectionProps) {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -4, scale: 1.01 }}
+                transition={{
+                  opacity: { delay: i * 0.1, duration: 0.6, ease: 'easeOut' },
+                  y: { type: 'spring', stiffness: 350, damping: 22 },
+                  scale: { type: 'spring', stiffness: 350, damping: 22 },
+                }}
                 onMouseEnter={() => setHovered(member.id)}
                 onMouseLeave={() => setHovered(null)}
                 className="hp-glass-card"
