@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminLayout from '@/components/layout/AdminLayout';
 
@@ -92,9 +92,8 @@ export default function AdminContactsPage() {
                 </thead>
                 <tbody>
                   {contacts.map((c) => (
-                    <>
+                    <Fragment key={c.id}>
                       <tr
-                        key={c.id}
                         onClick={() => toggleExpand(c.id)}
                         style={{ cursor: 'pointer' }}
                         className={expandedId === c.id ? 'table-active' : ''}
@@ -162,7 +161,7 @@ export default function AdminContactsPage() {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </Fragment>
                   ))}
                 </tbody>
               </table>

@@ -36,7 +36,7 @@ export default function NewBlogPage() {
   const [author, setAuthor] = useState('GDPR Consultants');
   const [tags, setTags] = useState('');
   const [readTime, setReadTime] = useState('');
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
   const [isFeatured, setIsFeatured] = useState(false);
   const [recdesc, setRecdesc] = useState('');
   const [metadesc, setMetadesc] = useState('');

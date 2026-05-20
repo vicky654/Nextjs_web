@@ -198,7 +198,7 @@ export default function Header() {
         .hdr-bar {
           display: flex;
           align-items: center;
-          height: 72px;
+          height: 74px;
           gap: 0;
         }
 
@@ -207,14 +207,14 @@ export default function Header() {
           flex-shrink: 0;
           display: flex;
           align-items: center;
-          font-size: 1.45rem;
+          font-size: 1.5rem;
           font-weight: 700;
           color: white;
           text-decoration: none;
           letter-spacing: -0.02em;
           line-height: 1;
           transition: color 0.3s ease;
-          margin-right: 8px;
+          margin-right: 20px;
         }
         .site-header.scrolled .hdr-logo {
           color: #1e3a5f;
@@ -238,7 +238,7 @@ export default function Header() {
           list-style: none;
           margin: 0;
           padding: 0;
-          gap: 2px;
+          gap: 0;
           flex-wrap: nowrap;
         }
         .hdr-nav__item {
@@ -252,9 +252,9 @@ export default function Header() {
           align-items: center;
           gap: 4px;
           height: 38px;
-          padding: 0 12px;
+          padding: 0 14px;
           font-family: inherit;
-          font-size: 0.875rem;
+          font-size: 0.9rem;
           font-weight: 500;
           line-height: 1;
           color: rgba(255, 255, 255, 0.92);
@@ -300,8 +300,8 @@ export default function Header() {
         .hdr-drop {
           position: absolute;
           top: calc(100% + 6px);
-          left: 50%;
-          transform: translateX(-50%);
+          left: 0;
+          transform: none;
           min-width: 260px;
           max-width: 320px;
           background: white;
@@ -315,8 +315,8 @@ export default function Header() {
           animation: dropIn 0.15s ease both;
         }
         @keyframes dropIn {
-          from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
-          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
         .hdr-drop__link {
           display: block;
@@ -340,8 +340,8 @@ export default function Header() {
           flex-shrink: 0;
           display: flex;
           align-items: center;
-          gap: 8px;
-          margin-left: 8px;
+          gap: 10px;
+          margin-left: 16px;
         }
 
         /* ── CTA button ── */
@@ -354,8 +354,8 @@ export default function Header() {
           font-size: 0.875rem;
           font-weight: 600;
           color: white;
-          background: #1e3a5f;
-          border: none;
+          background: rgba(255, 255, 255, 0.12);
+          border: 1.5px solid rgba(255, 255, 255, 0.45);
           border-radius: 8px;
           text-decoration: none;
           white-space: nowrap;
@@ -363,6 +363,11 @@ export default function Header() {
           transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
           letter-spacing: 0.01em;
           line-height: 1;
+        }
+        .site-header.scrolled .hdr-cta {
+          background: #1e3a5f;
+          border-color: #1e3a5f;
+          color: white;
         }
         .hdr-cta:hover {
           background: #00a8cc;
@@ -500,11 +505,11 @@ export default function Header() {
         @media (min-width: 992px) and (max-width: 1199px) {
           .hdr-nav__link,
           .hdr-nav__btn {
-            font-size: 0.825rem;
-            padding: 0 9px;
+            font-size: 0.8rem;
+            padding: 0 8px;
           }
-          .hdr-logo { font-size: 1.3rem; }
-          .hdr-cta { padding: 0 14px; font-size: 0.825rem; }
+          .hdr-logo { font-size: 1.25rem; }
+          .hdr-cta { padding: 0 12px; font-size: 0.8rem; }
         }
       `}</style>
     </header>
