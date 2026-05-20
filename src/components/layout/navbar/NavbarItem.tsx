@@ -13,7 +13,7 @@ interface NavbarItemProps {
   pathname: string;
 }
 
-/* Pill height tokens — must stay in sync with NavbarContainer */
+/* Must stay in sync with NavbarContainer pill height */
 const PILL_H = 60;
 const PILL_H_MOBILE = 54;
 
@@ -60,7 +60,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               aria-hidden="true"
             >
-              <ChevronDown size={12} strokeWidth={2.5} />
+              <ChevronDown size={13} strokeWidth={2.5} />
             </motion.span>
           </button>
 
@@ -96,9 +96,9 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           align-items: center;
           height: 100%;
           padding: 0 13px;
-          font-size: 0.875rem;
+          font-size: 0.9375rem;
           font-weight: 500;
-          color: #374151;
+          color: #4b5563;
           text-decoration: none;
           white-space: nowrap;
           letter-spacing: -0.01em;
@@ -108,23 +108,23 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           background: transparent;
           cursor: pointer;
           outline: none;
-          transition: color 0.14s ease, background 0.14s ease;
+          transition: color 0.15s ease, background 0.15s ease;
         }
 
-        /* ── Hover ─────────────────────────────────────────────── */
+        /* ── Hover — clear blue signal ─────────────────────────── */
         .ni__a:hover,
         .ni__btn:hover,
         .ni--open .ni__btn {
-          color: #111827;
-          background: rgba(0, 0, 0, 0.05);
+          color: #2563eb;
+          background: rgba(37, 99, 235, 0.06);
         }
 
         /* ── Focus ─────────────────────────────────────────────── */
         .ni__a:focus-visible,
         .ni__btn:focus-visible {
-          color: #111827;
-          background: rgba(0, 0, 0, 0.05);
-          outline: 2px solid rgba(37, 99, 235, 0.5);
+          color: #2563eb;
+          background: rgba(37, 99, 235, 0.06);
+          outline: 2px solid rgba(37, 99, 235, 0.35);
           outline-offset: -2px;
         }
 
@@ -135,7 +135,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           font-weight: 600;
         }
 
-        /* Active underline bar — sits 8px from pill bottom */
+        /* Blue gradient underline bar — sits 8px above pill bottom */
         .ni__a--active::after,
         .ni__btn--active::after {
           content: '';
@@ -150,19 +150,19 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
 
         /* ── Dropdown caret ────────────────────────────────────── */
         .ni__btn {
-          gap: 3px;
+          gap: 4px;
         }
         .ni__caret {
           display: flex;
           align-items: center;
-          color: rgba(0, 0, 0, 0.3);
+          color: #9ca3af;
           flex-shrink: 0;
           margin-top: 1px;
-          transition: color 0.14s ease;
+          transition: color 0.15s ease;
         }
         .ni__btn:hover .ni__caret,
         .ni--open .ni__caret {
-          color: rgba(0, 0, 0, 0.5);
+          color: #2563eb;
         }
 
         @media (max-width: 640px) {

@@ -8,7 +8,7 @@ interface NavbarDropdownProps {
 }
 
 const variants = {
-  hidden: { opacity: 0, y: -8, scale: 0.96 },
+  hidden: { opacity: 0, y: -6, scale: 0.97 },
   visible: { opacity: 1, y: 0, scale: 1 },
 };
 
@@ -53,37 +53,34 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
           top: calc(100% + 12px);
           left: 50%;
           transform: translateX(-50%);
-          min-width: 320px;
-          background: rgba(10, 15, 28, 0.98);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          min-width: 300px;
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
           border-radius: 16px;
           padding: 6px;
           box-shadow:
-            0 4px 6px rgba(0, 0, 0, 0.05),
-            0 16px 48px rgba(0, 0, 0, 0.5),
-            0 32px 80px rgba(0, 0, 0, 0.3),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
+            0 4px 6px rgba(0, 0, 0, 0.04),
+            0 16px 48px rgba(0, 0, 0, 0.1),
+            0 32px 80px rgba(0, 0, 0, 0.06);
           z-index: 1001;
           overflow: visible;
         }
         .nav-dd__item {
           display: flex;
           align-items: flex-start;
-          gap: 11px;
+          gap: 12px;
           padding: 10px 12px;
           border-radius: 10px;
           text-decoration: none;
-          transition: background 0.13s ease;
+          transition: background 0.12s ease;
           outline: none;
         }
         .nav-dd__item:hover {
-          background: rgba(255, 255, 255, 0.06);
+          background: #f8fafc;
         }
         .nav-dd__item:focus-visible {
-          background: rgba(255, 255, 255, 0.08);
-          outline: 2px solid rgba(59, 130, 246, 0.5);
+          background: #eff6ff;
+          outline: 2px solid rgba(37, 99, 235, 0.35);
         }
         .nav-dd__icon {
           display: flex;
@@ -92,8 +89,8 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
           width: 32px;
           height: 32px;
           border-radius: 8px;
-          background: rgba(59, 130, 246, 0.12);
-          color: #60a5fa;
+          background: rgba(37, 99, 235, 0.08);
+          color: #2563eb;
           flex-shrink: 0;
           margin-top: 1px;
         }
@@ -106,12 +103,15 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
         .nav-dd__label {
           font-size: 0.875rem;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.92);
+          color: #111827;
           line-height: 1.3;
+        }
+        .nav-dd__item:hover .nav-dd__label {
+          color: #2563eb;
         }
         .nav-dd__desc {
           font-size: 0.74rem;
-          color: rgba(255, 255, 255, 0.38);
+          color: #6b7280;
           line-height: 1.4;
         }
       `}</style>

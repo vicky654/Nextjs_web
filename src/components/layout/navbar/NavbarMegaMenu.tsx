@@ -8,7 +8,7 @@ interface NavbarMegaMenuProps {
 }
 
 const variants = {
-  hidden: { opacity: 0, y: -10, scale: 0.96 },
+  hidden: { opacity: 0, y: -8, scale: 0.97 },
   visible: { opacity: 1, y: 0, scale: 1 },
 };
 
@@ -29,7 +29,7 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
     >
       <div className="nav-mega__header">
         <span className="nav-mega__title">GDPR Topics</span>
-        <span className="nav-mega__sub">Explore compliance guidance by industry &amp; subject area</span>
+        <span className="nav-mega__sub">Compliance guidance by industry &amp; subject area</span>
       </div>
       <div className="nav-mega__grid">
         {[col1, col2].map((col, ci) => (
@@ -62,24 +62,22 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           top: calc(100% + 12px);
           right: -20px;
           left: auto;
-          width: 640px;
+          width: 600px;
           max-width: calc(100vw - 32px);
-          background: rgba(10, 15, 28, 0.98);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
           border-radius: 18px;
           overflow: hidden;
           box-shadow:
-            0 4px 6px rgba(0, 0, 0, 0.05),
-            0 20px 64px rgba(0, 0, 0, 0.55),
-            0 40px 100px rgba(0, 0, 0, 0.3),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
+            0 4px 6px rgba(0, 0, 0, 0.04),
+            0 20px 64px rgba(0, 0, 0, 0.1),
+            0 40px 100px rgba(0, 0, 0, 0.06);
           z-index: 1001;
         }
         .nav-mega__header {
-          padding: 14px 18px 10px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          padding: 14px 18px 12px;
+          background: #f8fafc;
+          border-bottom: 1px solid #e5e7eb;
         }
         .nav-mega__title {
           display: block;
@@ -87,12 +85,12 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           font-weight: 700;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #60a5fa;
+          color: #2563eb;
         }
         .nav-mega__sub {
           display: block;
           font-size: 0.72rem;
-          color: rgba(255, 255, 255, 0.33);
+          color: #6b7280;
           margin-top: 3px;
         }
         .nav-mega__grid {
@@ -115,11 +113,11 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           outline: none;
         }
         .nav-mega__item:hover {
-          background: rgba(255, 255, 255, 0.06);
+          background: #f1f5f9;
         }
         .nav-mega__item:focus-visible {
-          background: rgba(255, 255, 255, 0.08);
-          outline: 2px solid rgba(59, 130, 246, 0.5);
+          background: #eff6ff;
+          outline: 2px solid rgba(37, 99, 235, 0.35);
         }
         .nav-mega__icon {
           display: flex;
@@ -128,15 +126,19 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
           width: 26px;
           height: 26px;
           border-radius: 6px;
-          background: rgba(59, 130, 246, 0.1);
-          color: #60a5fa;
+          background: rgba(37, 99, 235, 0.08);
+          color: #2563eb;
           flex-shrink: 0;
         }
         .nav-mega__label {
           font-size: 0.8rem;
           font-weight: 450;
-          color: rgba(255, 255, 255, 0.8);
+          color: #374151;
           line-height: 1.3;
+          transition: color 0.12s ease;
+        }
+        .nav-mega__item:hover .nav-mega__label {
+          color: #1d4ed8;
         }
       `}</style>
     </motion.div>

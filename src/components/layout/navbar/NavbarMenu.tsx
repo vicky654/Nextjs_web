@@ -42,10 +42,8 @@ export default function NavbarMenu({
           display: flex;
           align-items: center;
           height: 100%;
-          /* gap:4px creates a tiny visual break between item hover areas;
-             combined with padding:0 13px on each item this gives 13+4+13=30px
-             between text edges — comfortably within the 24-32px target */
-          gap: 4px;
+          /* gap:6px + padding:0 13px per item = 32px between text edges */
+          gap: 6px;
           list-style: none;
           margin: 0;
           padding: 0;
