@@ -32,12 +32,15 @@ export default function NavbarMenu({
         .nav-menu {
           flex: 1;
           display: flex;
-          align-items: center;
+          align-items: stretch;
           justify-content: center;
+          align-self: stretch;
+          position: relative;
         }
         .nav-menu__list {
           display: flex;
-          align-items: center;
+          align-items: stretch;
+          align-self: stretch;
           gap: 2px;
           list-style: none;
           margin: 0;

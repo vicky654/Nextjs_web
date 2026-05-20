@@ -6,7 +6,8 @@
     "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --ext .ts,.tsx"
+    "lint": "eslint src --ext .ts,.tsx",
+    "seed": "node scripts/seed.mjs"
   },
   "dependencies": {
     "@tiptap/extension-character-count": "^3.23.5",
