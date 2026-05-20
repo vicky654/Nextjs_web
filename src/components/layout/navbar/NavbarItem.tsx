@@ -13,6 +13,10 @@ interface NavbarItemProps {
   pathname: string;
 }
 
+/* Pill height tokens — must stay in sync with NavbarContainer */
+const PILL_H = 60;
+const PILL_H_MOBILE = 54;
+
 export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarItemProps) {
   const isActive =
     pathname === item.href ||
@@ -34,7 +38,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
       {!hasChildren ? (
         <Link
           href={item.href}
-          className={`ni__link${isActive ? ' ni__link--active' : ''}`}
+          className={`ni__a${isActive ? ' ni__a--active' : ''}`}
           role="menuitem"
         >
           {item.label}
@@ -72,113 +76,99 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
 
       <style jsx>{`
         /*
-         * li fills the full pill height (60px) via align-self:stretch.
-         * position:relative here is the containing block for the dropdowns.
-         * No explicit z-index — keeps it out of any stacking context so
-         * the dropdown's z-index:1001 operates in the header context.
+         * Explicit height matches the pill so that top:100% on the
+         * dropdown always lands exactly at the pill's bottom edge —
+         * no reliance on the fragile align-self:stretch chain.
          */
         .ni {
           position: relative;
+          height: ${PILL_H}px;
+          display: flex;
+          align-items: center;
           list-style: none;
-          display: flex;
-          align-items: center;
-          align-self: stretch;
+          flex-shrink: 0;
         }
 
-        /* ── Plain link ─────────────────────────────────────────── */
-        .ni__link {
-          display: flex;
-          align-items: center;
-          height: 100%;
-          padding: 0 14px;
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: #4b5563;
-          text-decoration: none;
-          border-radius: 8px;
-          transition: color 0.15s ease, background 0.15s ease;
-          outline: none;
-          white-space: nowrap;
-          letter-spacing: -0.01em;
-          line-height: 1;
-        }
-        .ni__link:hover {
-          color: #111827;
-          background: rgba(0, 0, 0, 0.05);
-        }
-        .ni__link:focus-visible {
-          color: #111827;
-          background: rgba(0, 0, 0, 0.05);
-          outline: 2px solid rgba(37, 99, 235, 0.5);
-          outline-offset: -2px;
-        }
-        .ni__link--active {
-          color: #2563eb;
-          font-weight: 600;
-        }
-        /* Active indicator — bottom bar inside the pill */
-        .ni__link--active::after {
-          content: '';
-          position: absolute;
-          bottom: 8px;
-          left: 14px;
-          right: 14px;
-          height: 2px;
-          background: linear-gradient(90deg, #2563eb, #0891b2);
-          border-radius: 2px;
-        }
-
-        /* ── Dropdown trigger button ────────────────────────────── */
+        /* ── Shared link / button base ─────────────────────────── */
+        .ni__a,
         .ni__btn {
           display: flex;
           align-items: center;
-          gap: 3px;
           height: 100%;
-          padding: 0 14px;
+          padding: 0 13px;
           font-size: 0.875rem;
           font-weight: 500;
-          color: #4b5563;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          border-radius: 8px;
-          transition: color 0.15s ease, background 0.15s ease;
-          outline: none;
+          color: #374151;
+          text-decoration: none;
           white-space: nowrap;
           letter-spacing: -0.01em;
           line-height: 1;
+          border-radius: 8px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          outline: none;
+          transition: color 0.14s ease, background 0.14s ease;
         }
-        .ni__btn:hover {
+
+        /* ── Hover ─────────────────────────────────────────────── */
+        .ni__a:hover,
+        .ni__btn:hover,
+        .ni--open .ni__btn {
           color: #111827;
           background: rgba(0, 0, 0, 0.05);
         }
-        .ni--open .ni__btn {
-          color: #111827;
-          background: rgba(0, 0, 0, 0.06);
-        }
+
+        /* ── Focus ─────────────────────────────────────────────── */
+        .ni__a:focus-visible,
         .ni__btn:focus-visible {
           color: #111827;
           background: rgba(0, 0, 0, 0.05);
           outline: 2px solid rgba(37, 99, 235, 0.5);
           outline-offset: -2px;
         }
+
+        /* ── Active state ──────────────────────────────────────── */
+        .ni__a--active,
         .ni__btn--active {
           color: #2563eb;
           font-weight: 600;
         }
 
-        /* ── Caret icon ─────────────────────────────────────────── */
+        /* Active underline bar — sits 8px from pill bottom */
+        .ni__a--active::after,
+        .ni__btn--active::after {
+          content: '';
+          position: absolute;
+          bottom: 8px;
+          left: 13px;
+          right: 13px;
+          height: 2px;
+          background: linear-gradient(90deg, #2563eb, #0891b2);
+          border-radius: 2px;
+        }
+
+        /* ── Dropdown caret ────────────────────────────────────── */
+        .ni__btn {
+          gap: 3px;
+        }
         .ni__caret {
           display: flex;
           align-items: center;
           color: rgba(0, 0, 0, 0.3);
           flex-shrink: 0;
           margin-top: 1px;
-          transition: color 0.15s ease;
+          transition: color 0.14s ease;
         }
         .ni__btn:hover .ni__caret,
         .ni--open .ni__caret {
           color: rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 640px) {
+          .ni {
+            height: ${PILL_H_MOBILE}px;
+          }
         }
       `}</style>
     </li>

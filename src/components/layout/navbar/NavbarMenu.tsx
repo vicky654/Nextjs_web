@@ -33,19 +33,18 @@ export default function NavbarMenu({
         .nav-menu {
           flex: 1;
           display: flex;
-          align-items: stretch;
+          align-items: center;
           justify-content: center;
-          align-self: stretch;
-          /* No position:relative here — keeps dropdowns in the header
-             stacking context so their z-index: 1001 works globally */
+          height: 100%;
           min-width: 0;
         }
         .nav-menu__list {
           display: flex;
-          align-items: stretch;
-          align-self: stretch;
-          /* 4px gap between item boxes provides visual separation
-             without adding overflow risk on narrow 1024px viewports */
+          align-items: center;
+          height: 100%;
+          /* gap:4px creates a tiny visual break between item hover areas;
+             combined with padding:0 13px on each item this gives 13+4+13=30px
+             between text edges — comfortably within the 24-32px target */
           gap: 4px;
           list-style: none;
           margin: 0;
