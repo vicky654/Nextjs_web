@@ -14,7 +14,12 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
       </div>
 
       <style jsx>{`
-        /* Transparent fixed shell — creates the gap above the pill */
+        /*
+         * Transparent fixed shell — creates the floating gap above the pill.
+         * The shell itself has NO background and NO backdrop-filter so that
+         * it does not create a stacking context. Stacking contexts on the
+         * pill container would trap dropdown z-indices inside them.
+         */
         .nav-shell {
           position: fixed;
           top: 0;
@@ -24,25 +29,29 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
           padding: 14px 20px 0;
         }
 
-        /* The actual floating pill */
+        /*
+         * The visible pill.
+         * IMPORTANT: No backdrop-filter here — it would create a stacking
+         * context that confines child dropdown z-indices.
+         * The frosted look comes from a semi-opaque white + box-shadow.
+         */
         .nav-pill {
+          position: relative;
           max-width: 1200px;
           margin: 0 auto;
           height: 60px;
           display: flex;
           align-items: stretch;
           justify-content: space-between;
-          gap: 4px;
+          gap: 8px;
           padding: 0 8px 0 20px;
-          background: rgba(255, 255, 255, 0.92);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
+          background: rgba(255, 255, 255, 0.97);
           border: 1px solid rgba(0, 0, 0, 0.08);
           border-radius: 9999px;
           box-shadow:
-            0 1px 3px rgba(0, 0, 0, 0.05),
-            0 4px 20px rgba(0, 0, 0, 0.08),
-            0 0 0 0.5px rgba(255, 255, 255, 0.9) inset;
+            0 1px 2px rgba(0, 0, 0, 0.04),
+            0 4px 16px rgba(0, 0, 0, 0.08),
+            0 0 0 1px rgba(255, 255, 255, 0.8) inset;
           transition:
             box-shadow 0.3s ease,
             background 0.3s ease,
@@ -50,17 +59,16 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
         }
 
         .nav-pill--scrolled {
-          background: rgba(255, 255, 255, 0.97);
+          background: #ffffff;
           border-color: rgba(0, 0, 0, 0.1);
           box-shadow:
-            0 2px 8px rgba(0, 0, 0, 0.07),
-            0 12px 40px rgba(0, 0, 0, 0.1),
-            0 0 0 0.5px rgba(255, 255, 255, 0.9) inset;
+            0 2px 6px rgba(0, 0, 0, 0.06),
+            0 8px 28px rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 1023px) {
+        @media (max-width: 1280px) {
           .nav-shell {
-            padding: 10px 14px 0;
+            padding: 12px 16px 0;
           }
         }
 
@@ -71,6 +79,7 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
           .nav-pill {
             height: 54px;
             padding: 0 6px 0 14px;
+            gap: 4px;
           }
         }
       `}</style>

@@ -59,7 +59,7 @@ export default function NavbarMegaMenu({ items }: NavbarMegaMenuProps) {
       <style jsx>{`
         .nav-mega {
           position: absolute;
-          top: calc(100% + 8px);
+          top: calc(100% + 12px);
           right: -20px;
           left: auto;
           width: 640px;

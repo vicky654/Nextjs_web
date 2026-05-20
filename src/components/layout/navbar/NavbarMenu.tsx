@@ -28,6 +28,7 @@ export default function NavbarMenu({
           />
         ))}
       </ul>
+
       <style jsx>{`
         .nav-menu {
           flex: 1;
@@ -35,13 +36,17 @@ export default function NavbarMenu({
           align-items: stretch;
           justify-content: center;
           align-self: stretch;
-          position: relative;
+          /* No position:relative here — keeps dropdowns in the header
+             stacking context so their z-index: 1001 works globally */
+          min-width: 0;
         }
         .nav-menu__list {
           display: flex;
           align-items: stretch;
           align-self: stretch;
-          gap: 2px;
+          /* 4px gap between item boxes provides visual separation
+             without adding overflow risk on narrow 1024px viewports */
+          gap: 4px;
           list-style: none;
           margin: 0;
           padding: 0;

@@ -14,7 +14,9 @@ interface NavbarItemProps {
 }
 
 export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarItemProps) {
-  const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+  const isActive =
+    pathname === item.href ||
+    (item.href !== '/' && item.href !== '#' && pathname.startsWith(item.href));
   const hasChildren = Boolean(item.children?.length);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -26,13 +28,13 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
 
   return (
     <li
-      className={`nav-item${hasChildren ? ' nav-item--dd' : ''}${isOpen ? ' nav-item--open' : ''}`}
+      className={`ni${hasChildren ? ' ni--dd' : ''}${isOpen ? ' ni--open' : ''}`}
       role="none"
     >
       {!hasChildren ? (
         <Link
           href={item.href}
-          className={`nav-link${isActive ? ' nav-link--active' : ''}`}
+          className={`ni__link${isActive ? ' ni__link--active' : ''}`}
           role="menuitem"
         >
           {item.label}
@@ -40,7 +42,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
       ) : (
         <>
           <button
-            className={`nav-trigger${isActive ? ' nav-trigger--active' : ''}`}
+            className={`ni__btn${isActive ? ' ni__btn--active' : ''}`}
             onClick={() => onToggle(isOpen ? null : item.label)}
             onKeyDown={handleKeyDown}
             aria-haspopup="menu"
@@ -49,12 +51,12 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           >
             {item.label}
             <motion.span
-              className="nav-trigger__caret"
+              className="ni__caret"
               animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.22, ease: 'easeInOut' }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
               aria-hidden="true"
             >
-              <ChevronDown size={13} strokeWidth={2.5} />
+              <ChevronDown size={12} strokeWidth={2.5} />
             </motion.span>
           </button>
 
@@ -69,8 +71,13 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
       )}
 
       <style jsx>{`
-        /* li fills full pill height via align-self:stretch inherited from flex parent */
-        .nav-item {
+        /*
+         * li fills the full pill height (60px) via align-self:stretch.
+         * position:relative here is the containing block for the dropdowns.
+         * No explicit z-index — keeps it out of any stacking context so
+         * the dropdown's z-index:1001 operates in the header context.
+         */
+        .ni {
           position: relative;
           list-style: none;
           display: flex;
@@ -78,86 +85,90 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           align-self: stretch;
         }
 
-        /* Plain nav link — dark text on white pill */
-        .nav-link {
+        /* ── Plain link ─────────────────────────────────────────── */
+        .ni__link {
           display: flex;
           align-items: center;
           height: 100%;
-          padding: 0 12px;
+          padding: 0 14px;
           font-size: 0.875rem;
           font-weight: 500;
-          color: #475569;
+          color: #4b5563;
           text-decoration: none;
-          border-radius: 0;
+          border-radius: 8px;
           transition: color 0.15s ease, background 0.15s ease;
           outline: none;
           white-space: nowrap;
           letter-spacing: -0.01em;
+          line-height: 1;
         }
-        .nav-link:hover {
-          color: #0f172a;
-          background: rgba(0, 0, 0, 0.04);
+        .ni__link:hover {
+          color: #111827;
+          background: rgba(0, 0, 0, 0.05);
         }
-        .nav-link:focus-visible {
-          color: #0f172a;
+        .ni__link:focus-visible {
+          color: #111827;
           background: rgba(0, 0, 0, 0.05);
           outline: 2px solid rgba(37, 99, 235, 0.5);
-          border-radius: 6px;
+          outline-offset: -2px;
         }
-        .nav-link--active {
+        .ni__link--active {
           color: #2563eb;
           font-weight: 600;
         }
-        .nav-link--active::after {
+        /* Active indicator — bottom bar inside the pill */
+        .ni__link--active::after {
           content: '';
           position: absolute;
-          bottom: 10px;
-          left: 12px;
-          right: 12px;
+          bottom: 8px;
+          left: 14px;
+          right: 14px;
           height: 2px;
           background: linear-gradient(90deg, #2563eb, #0891b2);
           border-radius: 2px;
         }
 
-        /* Dropdown trigger button — dark text on white pill */
-        .nav-trigger {
+        /* ── Dropdown trigger button ────────────────────────────── */
+        .ni__btn {
           display: flex;
           align-items: center;
           gap: 3px;
           height: 100%;
-          padding: 0 12px;
+          padding: 0 14px;
           font-size: 0.875rem;
           font-weight: 500;
-          color: #475569;
+          color: #4b5563;
           background: transparent;
           border: none;
           cursor: pointer;
-          border-radius: 0;
+          border-radius: 8px;
           transition: color 0.15s ease, background 0.15s ease;
           outline: none;
           white-space: nowrap;
           letter-spacing: -0.01em;
+          line-height: 1;
         }
-        .nav-trigger:hover {
-          color: #0f172a;
-          background: rgba(0, 0, 0, 0.04);
-        }
-        .nav-item--open .nav-trigger {
-          color: #0f172a;
+        .ni__btn:hover {
+          color: #111827;
           background: rgba(0, 0, 0, 0.05);
         }
-        .nav-trigger:focus-visible {
-          color: #0f172a;
+        .ni--open .ni__btn {
+          color: #111827;
+          background: rgba(0, 0, 0, 0.06);
+        }
+        .ni__btn:focus-visible {
+          color: #111827;
           background: rgba(0, 0, 0, 0.05);
           outline: 2px solid rgba(37, 99, 235, 0.5);
-          border-radius: 6px;
+          outline-offset: -2px;
         }
-        .nav-trigger--active {
+        .ni__btn--active {
           color: #2563eb;
           font-weight: 600;
         }
 
-        .nav-trigger__caret {
+        /* ── Caret icon ─────────────────────────────────────────── */
+        .ni__caret {
           display: flex;
           align-items: center;
           color: rgba(0, 0, 0, 0.3);
@@ -165,9 +176,9 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           margin-top: 1px;
           transition: color 0.15s ease;
         }
-        .nav-trigger:hover .nav-trigger__caret,
-        .nav-item--open .nav-trigger__caret {
-          color: rgba(0, 0, 0, 0.55);
+        .ni__btn:hover .ni__caret,
+        .ni--open .ni__caret {
+          color: rgba(0, 0, 0, 0.5);
         }
       `}</style>
     </li>
