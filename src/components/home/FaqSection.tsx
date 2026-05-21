@@ -18,7 +18,7 @@ export default function FaqSection() {
   return (
     <section style={{ background: 'var(--hp-dark-surface)', padding: 'var(--hp-section-gap) 0' }}>
       <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 1.5rem' }}>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
           style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <div className="hp-section-badge">FAQ</div>
           <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
@@ -34,7 +34,7 @@ export default function FaqSection() {
             <motion.div key={i}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: i * 0.06 }}
               style={{ border: `1px solid ${open === i ? 'rgba(59,130,246,0.4)' : 'var(--hp-border)'}`, borderRadius: 'var(--hp-radius-sm)', overflow: 'hidden', background: open === i ? 'rgba(59,130,246,0.05)' : 'var(--hp-glass)', transition: 'border-color 0.2s, background 0.2s' }}>
               <button onClick={() => setOpen(open === i ? null : i)}

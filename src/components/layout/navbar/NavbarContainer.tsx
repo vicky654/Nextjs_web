@@ -4,10 +4,11 @@ import type { CSSProperties, ReactNode } from 'react';
 
 interface NavbarContainerProps {
   scrolled: boolean;
+  hidden: boolean;
   children: ReactNode;
 }
 
-export default function NavbarContainer({ scrolled, children }: NavbarContainerProps) {
+export default function NavbarContainer({ scrolled, hidden, children }: NavbarContainerProps) {
   const shellStyle: CSSProperties = {
     position: 'fixed',
     top: 16,
@@ -45,8 +46,8 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
         className="nav-glass-pill"
         style={pillStyle}
         initial={{ y: -80, opacity: 0, scale: 0.97 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        animate={hidden ? { y: -110, opacity: 0, scale: 0.97 } : { y: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: hidden ? 0.3 : 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.div>

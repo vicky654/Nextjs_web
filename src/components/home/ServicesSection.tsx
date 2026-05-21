@@ -50,7 +50,7 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 1.5rem' }}>
 
         {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="hp-section-badge">Our Services</div>
           <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#fff', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
@@ -71,7 +71,7 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
               <motion.div key={service.id}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.2 }}
                 whileHover={{ y: -6 }}
                 transition={{
                   opacity: { delay: i * 0.07, duration: 0.6, ease: 'easeOut' },
@@ -109,7 +109,7 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
           })}
         </div>
 
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false, amount: 0.2 }}
           style={{ textAlign: 'center', marginTop: '3rem' }}>
           <Link href="/services/"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e2e8f0', padding: '12px 28px', borderRadius: 10, fontWeight: 600, textDecoration: 'none', transition: 'all 0.2s' }}

@@ -18,7 +18,7 @@ export default function WhyUsSection() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }} className="hp-why-grid">
 
           {/* Left: heading + description */}
-          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.2 }}>
             <div className="hp-section-badge">Why Choose Us</div>
             <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.75rem)', fontWeight: 800, color: '#fff', lineHeight: 1.2, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>
               The Standard in{' '}
@@ -43,7 +43,7 @@ export default function WhyUsSection() {
               <motion.div key={title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{ delay: i * 0.08 }}
                 className="hp-glass-card"
                 style={{ padding: '1.25rem' }}>
@@ -58,7 +58,7 @@ export default function WhyUsSection() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         @media (max-width: 768px) {
           .hp-why-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
         }

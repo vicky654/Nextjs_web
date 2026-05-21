@@ -17,7 +17,7 @@ export default function NewsletterSection() {
     <section style={{ background: 'linear-gradient(135deg, #0d1b2a 0%, #1e3a5f 50%, #0d2137 100%)', padding: '5rem 0', position: 'relative', overflow: 'hidden' }}>
       <div className="hp-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.3 }} />
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 1.5rem', position: 'relative', textAlign: 'center' }}>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}>
           <div style={{ width: 56, height: 56, borderRadius: 16, background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
             <Mail size={24} style={{ color: '#60a5fa' }} />
           </div>

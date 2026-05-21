@@ -55,7 +55,7 @@ export default function TestimonialsSection() {
       <div style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 400, background: 'radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 1.5rem', position: 'relative' }}>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="hp-section-badge">Testimonials</div>
           <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '0.75rem' }}>
@@ -73,7 +73,7 @@ export default function TestimonialsSection() {
               key={t.id}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: i * 0.1 }}
               onClick={() => setActive(i)}
               style={{
@@ -171,7 +171,7 @@ export default function TestimonialsSection() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         .testi-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);

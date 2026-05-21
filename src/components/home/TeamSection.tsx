@@ -24,7 +24,7 @@ export default function TeamSection({ members }: TeamSectionProps) {
   return (
     <section style={{ background: 'var(--hp-dark)', padding: 'var(--hp-section-gap) 0' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 1.5rem' }}>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="hp-section-badge">Our Team</div>
           <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#fff', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
@@ -42,7 +42,7 @@ export default function TeamSection({ members }: TeamSectionProps) {
               <motion.div key={member.id}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.2 }}
                 whileHover={{ y: -4, scale: 1.01 }}
                 transition={{
                   opacity: { delay: i * 0.1, duration: 0.6, ease: 'easeOut' },

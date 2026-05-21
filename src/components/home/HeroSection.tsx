@@ -1,5 +1,6 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Shield, Lock, Globe, FileCheck, ChevronRight } from 'lucide-react';
 
@@ -26,8 +27,23 @@ const fadeUp = {
 };
 
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const glowX = useSpring(mouseX, { stiffness: 60, damping: 20 });
+  const glowY = useSpring(mouseY, { stiffness: 60, damping: 20 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  }, [mouseX, mouseY]);
+
   return (
     <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
       style={{
         position: 'relative',
         minHeight: '100vh',
@@ -40,6 +56,23 @@ export default function HeroSection() {
     >
       {/* Background grid */}
       <div className="hp-grid-bg" style={{ position: 'absolute', inset: 0, opacity: 0.5 }} />
+
+      {/* Mouse-follow glow */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          left: glowX,
+          top: glowY,
+          x: '-50%',
+          y: '-50%',
+          width: 480,
+          height: 480,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 65%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
 
       {/* Ambient gradient orbs */}
       <motion.div
@@ -267,7 +300,7 @@ export default function HeroSection() {
         background: 'linear-gradient(to bottom, transparent, var(--hp-dark-surface))',
       }} />
 
-      <style jsx>{`
+      <style jsx global>{`
         @media (min-width: 992px) {
           .hp-hero-illustration { display: block !important; }
         }

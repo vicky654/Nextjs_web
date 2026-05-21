@@ -29,7 +29,7 @@ export default function ContactSection() {
   return (
     <section id="contact" style={{ background: 'var(--hp-dark)', padding: 'var(--hp-section-gap) 0' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 1.5rem' }}>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="hp-section-badge">Contact Us</div>
           <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
@@ -43,7 +43,7 @@ export default function ContactSection() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '3rem', alignItems: 'start' }} className="hp-contact-grid">
 
           {/* Left: Contact info */}
-          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.2 }}>
             {[
               { icon: Mail, label: 'Email Us', value: 'info@dpdpconsultants.com', href: 'mailto:info@dpdpconsultants.com' },
               { icon: Phone, label: 'Call Us', value: '+91 98765 43210', href: 'tel:+919876543210' },
@@ -64,7 +64,7 @@ export default function ContactSection() {
           </motion.div>
 
           {/* Right: Form */}
-          <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+          <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.2 }}
             className="hp-glass-card" style={{ padding: '2rem' }}>
             {success ? (
               <div style={{ textAlign: 'center', padding: '2rem' }}>
@@ -118,7 +118,7 @@ export default function ContactSection() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         @media (max-width: 768px) { .hp-contact-grid { grid-template-columns: 1fr !important; } }
         @keyframes spin { to { transform: rotate(360deg); } }
       `}</style>

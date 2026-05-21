@@ -33,7 +33,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
     <section style={{ background: 'var(--hp-dark-surface)', padding: 'var(--hp-section-gap) 0' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 1.5rem' }}>
 
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
           style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="hp-section-badge">Latest Insights</div>
@@ -52,7 +52,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
         <div style={{ display: 'grid', gridTemplateColumns: rest.length > 0 ? '2fr 1fr' : '1fr', gap: '1.25rem' }} className="hp-blog-grid">
 
           {/* Featured post */}
-          <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}
             className="hp-glass-card" style={{ overflow: 'hidden' }}>
             {featured.recimg?.startsWith('http') && (
               <div style={{ position: 'relative', height: 260 }}>
@@ -88,7 +88,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 <motion.article key={post.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false, amount: 0.2 }}
                   transition={{ delay: (i + 1) * 0.1 }}
                   className="hp-glass-card"
                   style={{ padding: '1.25rem', flex: 1 }}>
@@ -115,7 +115,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         @media (max-width: 768px) {
           .hp-blog-grid { grid-template-columns: 1fr !important; }
         }

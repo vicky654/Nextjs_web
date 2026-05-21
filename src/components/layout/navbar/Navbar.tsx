@@ -13,13 +13,22 @@ import { NAV_CONFIG } from '@/config/navigation';
 export default function Navbar() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
   const [scrolled, setScrolled] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  // Scroll detector
+  // Scroll detector: tracks depth and direction
   useEffect(() => {
-    const handle = () => setScrolled(window.scrollY > 20);
+    const handle = () => {
+      const y = window.scrollY;
+      setScrolled(y > 20);
+      if (y < 80) { setNavHidden(false); }
+      else if (y > lastScrollY.current + 8) { setNavHidden(true); }
+      else if (y < lastScrollY.current - 4) { setNavHidden(false); }
+      lastScrollY.current = y;
+    };
     handle();
     window.addEventListener('scroll', handle, { passive: true });
     return () => window.removeEventListener('scroll', handle);
@@ -72,7 +81,7 @@ export default function Navbar() {
   return (
     <>
       <div ref={headerRef}>
-        <NavbarContainer scrolled={scrolled}>
+        <NavbarContainer scrolled={scrolled} hidden={navHidden}>
           <NavbarLogo />
           <NavbarMenu
             items={NAV_CONFIG}

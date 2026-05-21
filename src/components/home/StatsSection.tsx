@@ -13,10 +13,10 @@ const STATS = [
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref, { once: false, amount: 0.5 });
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) { setCount(0); return; }
     const duration = 1800;
     const steps = 60;
     const increment = target / steps;
@@ -40,7 +40,7 @@ export default function StatsSection() {
             <motion.div key={label}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               style={{ background: 'var(--hp-glass)', border: '1px solid var(--hp-border)', borderRadius: 'var(--hp-radius)', padding: '2rem', textAlign: 'center', transition: 'all 0.3s' }}
               whileHover={{ y: -4, borderColor: 'var(--hp-border-accent)' }}>
