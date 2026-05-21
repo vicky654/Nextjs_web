@@ -1,28 +1,22 @@
 import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import HomeFooter from '@/components/home/HomeFooter';
+import ContactSection from '@/components/home/ContactSection';
 import SchemaMarkup from '@/components/ui/SchemaMarkup';
 import { buildPageMeta, buildBreadcrumbSchema, buildOrgSchema } from '@/lib/seo';
 
 export const metadata: Metadata = buildPageMeta({
-  title: 'Contact GDPR Consultants EU',
-  description: 'Connect with our GDPR consultants in the EU to access GDPR compliance tools, techno-legal expertise, and tailored data protection solutions.',
-  keywords: 'GDPR consultants EU, GDPR compliance experts, GDPR advisory, GDPR compliance services',
+  title: 'Contact DPDP Consultants | Get Expert Privacy Advice',
+  description:
+    'Connect with our data protection experts for DPDP compliance, GDPR advisory, and tailored privacy solutions. We respond within one business day.',
+  keywords:
+    'contact DPDP Consultants, GDPR consultants EU, GDPR compliance experts, data protection advisory',
   canonicalPath: '/contact-us/',
 });
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: 'Contact Us' },
-];
-
-const expertise = [
-  { icon: 'bi-shield-check',    text: 'GDPR Compliance Programmes' },
-  { icon: 'bi-people',          text: 'Data Protection Officer Services' },
-  { icon: 'bi-clipboard-data',  text: 'Data Protection Impact Assessments' },
-  { icon: 'bi-gear',            text: 'Compliance Software & Tools' },
-  { icon: 'bi-file-text',       text: 'Policy and DPA Drafting' },
-  { icon: 'bi-mortarboard',     text: 'GDPR Training Programmes' },
 ];
 
 export default function ContactUsPage() {
@@ -33,154 +27,82 @@ export default function ContactUsPage() {
     <>
       <SchemaMarkup schema={[breadcrumbSchema, orgSchema]} />
       <Header />
-      <main>
+      <main style={{ background: 'var(--hp-dark)', minHeight: '100vh' }}>
         {/* Hero */}
-        <section className="page-hero">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-8">
-                <span className="subtitle">Get in Touch</span>
-                <h1>Contact GDPR Consultants EU</h1>
-                <p className="lead">
-                  Reach our team of GDPR experts for compliance tools, advisory services, and tailored data protection solutions.
-                </p>
-              </div>
+        <section
+          style={{
+            background: 'linear-gradient(160deg, #060d18 0%, #0d1f3c 50%, #060d18 100%)',
+            padding: '7rem 1.5rem 5rem',
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '20%',
+              left: '50%',
+              transform: 'translate(-50%,-50%)',
+              width: 700,
+              height: 500,
+              background: 'radial-gradient(ellipse, rgba(59,130,246,0.1) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }}
+          />
+          <div style={{ maxWidth: 680, margin: '0 auto', position: 'relative' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                background: 'rgba(59,130,246,0.1)',
+                border: '1px solid rgba(59,130,246,0.25)',
+                borderRadius: 100,
+                padding: '0.35rem 1rem',
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                color: '#60a5fa',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase' as const,
+                marginBottom: '1.5rem',
+              }}
+            >
+              Get in Touch
             </div>
+            <h1
+              style={{
+                fontSize: 'clamp(2rem, 5vw, 3.25rem)',
+                fontWeight: 800,
+                color: '#fff',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                marginBottom: '1.25rem',
+              }}
+            >
+              Talk to Our{' '}
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                Privacy Experts
+              </span>
+            </h1>
+            <p style={{ fontSize: '1.05rem', color: '#94a3b8', lineHeight: 1.7, maxWidth: 520, margin: '0 auto' }}>
+              Reach our team of certified data protection specialists for compliance tools,
+              advisory services, and tailored privacy solutions.
+            </p>
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section className="section">
-          <div className="container">
-            <div className="row g-5 align-items-start">
-              {/* Form */}
-              <div className="col-lg-7">
-                <div className="card p-4 p-md-5" style={{ boxShadow: 'none', border: '1.5px solid #e2e8f0' }}>
-                  <h2 className="h3 mb-1" style={{ color: '#1e3a5f' }}>Send us a Message</h2>
-                  <p className="text-muted small mb-4">We typically respond within one business day.</p>
-
-                  <form action="/api/contact" method="POST">
-                    <div className="row g-3">
-                      <div className="col-sm-6">
-                        <label htmlFor="name" className="form-label">
-                          Full Name <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="name"
-                          name="name"
-                          placeholder="Your full name"
-                          required
-                        />
-                      </div>
-                      <div className="col-sm-6">
-                        <label htmlFor="email" className="form-label">
-                          Email Address <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="email"
-                          name="email"
-                          placeholder="you@company.com"
-                          required
-                        />
-                      </div>
-                      <div className="col-sm-6">
-                        <label htmlFor="phone" className="form-label">Phone Number</label>
-                        <input
-                          type="tel"
-                          className="form-control"
-                          id="phone"
-                          name="phone"
-                          placeholder="+44 000 000 0000"
-                        />
-                      </div>
-                      <div className="col-sm-6">
-                        <label htmlFor="subject" className="form-label">
-                          Subject <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="subject"
-                          name="subject"
-                          placeholder="How can we help?"
-                          required
-                        />
-                      </div>
-                      <div className="col-12">
-                        <label htmlFor="message" className="form-label">
-                          Message <span className="text-danger">*</span>
-                        </label>
-                        <textarea
-                          className="form-control"
-                          id="message"
-                          name="message"
-                          rows={5}
-                          placeholder="Tell us about your data protection needs…"
-                          required
-                        />
-                      </div>
-                      <div className="col-12">
-                        <button
-                          type="submit"
-                          className="btn btn-primary btn-lg w-100"
-                        >
-                          <i className="bi bi-send me-2" />
-                          Send Message
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              {/* Sidebar */}
-              <div className="col-lg-5">
-                <div className="ps-lg-2">
-                  <span className="subtitle">Our Expertise</span>
-                  <h2 className="h3 mb-3">How We Can Help</h2>
-                  <p className="text-muted mb-4">
-                    Our team of GDPR specialists provides techno-legal expertise across all areas of EU data protection compliance.
-                  </p>
-
-                  <ul className="contact-feature-list">
-                    {expertise.map(({ icon, text }) => (
-                      <li key={text}>
-                        <i className={`bi ${icon}`} />
-                        <span>{text}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div
-                    className="mt-5 p-4 rounded-3"
-                    style={{ background: 'rgba(30,58,95,0.04)', border: '1px solid rgba(30,58,95,0.08)' }}
-                  >
-                    <div className="d-flex gap-3 align-items-start mb-3">
-                      <i className="bi bi-envelope-fill fs-5" style={{ color: '#00a8cc', marginTop: 2 }} />
-                      <div>
-                        <div className="fw-semibold small" style={{ color: '#1e3a5f' }}>Email</div>
-                        <a href="mailto:info@gdprconsultants.in" className="small text-muted">info@gdprconsultants.in</a>
-                      </div>
-                    </div>
-                    <div className="d-flex gap-3 align-items-start">
-                      <i className="bi bi-clock-fill fs-5" style={{ color: '#00a8cc', marginTop: 2 }} />
-                      <div>
-                        <div className="fw-semibold small" style={{ color: '#1e3a5f' }}>Response Time</div>
-                        <span className="small text-muted">Within 1 business day</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Contact form — dark-themed client component with AJAX submission */}
+        <ContactSection />
       </main>
-      <Footer />
+      <HomeFooter />
     </>
   );
 }
