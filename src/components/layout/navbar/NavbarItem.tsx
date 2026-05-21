@@ -14,8 +14,8 @@ interface NavbarItemProps {
 }
 
 /* Must stay in sync with NavbarContainer pill height */
-const PILL_H = 52;
-const PILL_H_MOBILE = 48;
+const PILL_H = 62;
+const PILL_H_MOBILE = 54;
 
 export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarItemProps) {
   const isActive =
@@ -60,7 +60,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
               transition={{ duration: 0.18, ease: 'easeInOut' }}
               aria-hidden="true"
             >
-              <ChevronDown size={12} strokeWidth={2.5} />
+              <ChevronDown size={13} strokeWidth={2.5} />
             </motion.span>
           </button>
 
@@ -76,8 +76,8 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
 
       <style jsx>{`
         /*
-         * Explicit height matches the pill so that top:100% on the
-         * dropdown always lands exactly at the pill's bottom edge.
+         * Explicit height matches pill height so top:100% on dropdowns
+         * always resolves to the pill's exact bottom edge.
          */
         .ni {
           position: relative;
@@ -93,16 +93,16 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
         .ni__btn {
           display: flex;
           align-items: center;
-          height: 36px;
-          padding: 0 11px;
-          font-size: 0.875rem;
+          height: 40px;
+          padding: 0 14px;
+          font-size: 0.9rem;
           font-weight: 500;
           color: #374151;
           text-decoration: none;
           white-space: nowrap;
-          letter-spacing: -0.005em;
+          letter-spacing: -0.01em;
           line-height: 1;
-          border-radius: 8px;
+          border-radius: 9px;
           border: none;
           background: transparent;
           cursor: pointer;
@@ -110,7 +110,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           transition: color 0.15s ease, background 0.15s ease;
         }
 
-        /* ── Hover — blue text + very subtle bg ───────────────── */
+        /* ── Hover ─────────────────────────────────────────────── */
         .ni__a:hover,
         .ni__btn:hover,
         .ni--open .ni__btn {
@@ -122,35 +122,33 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
         .ni__a:focus-visible,
         .ni__btn:focus-visible {
           color: #2563eb;
-          background: rgba(37, 99, 235, 0.06);
+          background: rgba(37, 99, 235, 0.07);
           outline: 2px solid rgba(37, 99, 235, 0.35);
           outline-offset: -1px;
         }
 
-        /* ── Active state ──────────────────────────────────────── */
+        /* ── Active ────────────────────────────────────────────── */
         .ni__a--active,
         .ni__btn--active {
           color: #1d4ed8;
           font-weight: 600;
         }
 
-        /* Gradient underline indicator for active tab */
+        /* Gradient underline tab indicator */
         .ni__a--active::after,
         .ni__btn--active::after {
           content: '';
           position: absolute;
-          bottom: 5px;
-          left: 11px;
-          right: 11px;
+          bottom: 6px;
+          left: 14px;
+          right: 14px;
           height: 2px;
           background: linear-gradient(90deg, #2563eb, #0891b2);
           border-radius: 2px;
         }
 
-        /* ── Dropdown caret ────────────────────────────────────── */
-        .ni__btn {
-          gap: 3px;
-        }
+        /* ── Caret ─────────────────────────────────────────────── */
+        .ni__btn { gap: 4px; }
         .ni__caret {
           display: flex;
           align-items: center;
@@ -160,9 +158,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           transition: color 0.15s ease;
         }
         .ni__btn:hover .ni__caret,
-        .ni--open .ni__caret {
-          color: #2563eb;
-        }
+        .ni--open .ni__caret { color: #2563eb; }
 
         @media (max-width: 640px) {
           .ni { height: ${PILL_H_MOBILE}px; }

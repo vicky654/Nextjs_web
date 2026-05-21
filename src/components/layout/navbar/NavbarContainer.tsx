@@ -14,27 +14,27 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
     left: 0,
     right: 0,
     zIndex: 999,
-    padding: '0 16px',
+    padding: '0 20px',
   };
 
   const pillStyle: CSSProperties = {
-    /* Layout — inline so styled-jsx scoping can't break it */
+    /* Layout */
     position: 'relative',
-    maxWidth: 1152,
+    maxWidth: 1200,
     margin: '0 auto',
-    height: 52,
+    height: 62,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 4,
-    padding: '0 6px 0 22px',
+    gap: 8,
+    padding: '0 16px 0 28px',
     /* Visual */
-    background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.94)',
-    border: `1px solid ${scrolled ? 'rgba(0,0,0,0.11)' : 'rgba(0,0,0,0.08)'}`,
+    background: scrolled ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.95)',
+    border: `1px solid ${scrolled ? 'rgba(0,0,0,0.12)' : 'rgba(0,0,0,0.08)'}`,
     borderRadius: 9999,
     boxShadow: scrolled
-      ? '0 2px 4px rgba(0,0,0,0.05), 0 8px 24px rgba(0,0,0,0.09), 0 24px 48px rgba(0,0,0,0.05)'
-      : '0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06)',
+      ? '0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.1), 0 32px 64px rgba(0,0,0,0.05)'
+      : '0 1px 3px rgba(0,0,0,0.04), 0 4px 20px rgba(0,0,0,0.07)',
     transition: 'background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease',
     willChange: 'transform, opacity',
   };
@@ -44,22 +44,19 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
       <motion.div
         className="nav-glass-pill"
         style={pillStyle}
-        initial={{ y: -72, opacity: 0, scale: 0.97 }}
+        initial={{ y: -80, opacity: 0, scale: 0.97 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.div>
 
-      {/*
-        ::before provides backdrop-blur without placing backdrop-filter on the pill
-        itself (which would create a stacking context trapping dropdown z-indices).
-        Global scope ensures it applies regardless of styled-jsx hash resolution.
-      */}
       <style jsx global>{`
         .nav-glass-pill {
           box-sizing: border-box;
         }
+        /* Backdrop blur on ::before keeps stacking context off the pill,
+           so dropdown z-indices remain unrestricted. */
         .nav-glass-pill::before {
           content: '';
           position: absolute;
@@ -73,11 +70,11 @@ export default function NavbarContainer({ scrolled, children }: NavbarContainerP
         @media (max-width: 640px) {
           header[role="banner"] {
             top: 10px !important;
-            padding: 0 10px !important;
+            padding: 0 12px !important;
           }
           .nav-glass-pill {
-            height: 48px !important;
-            padding: 0 4px 0 14px !important;
+            height: 54px !important;
+            padding: 0 10px 0 18px !important;
           }
         }
       `}</style>

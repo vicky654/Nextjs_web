@@ -11,10 +11,10 @@ export default function NavbarCTA() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 9px 20px;
+          padding: 10px 22px;
           background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
           color: #ffffff;
-          font-size: 0.845rem;
+          font-size: 0.875rem;
           font-weight: 600;
           text-decoration: none;
           border-radius: 9999px;
@@ -23,7 +23,7 @@ export default function NavbarCTA() {
           outline: none;
           position: relative;
           z-index: 0;
-          margin-right: 2px;
+          margin-right: 4px;
           box-shadow: 0 1px 6px rgba(37, 99, 235, 0.3), 0 4px 16px rgba(37, 99, 235, 0.2);
           transition: box-shadow 0.22s ease, transform 0.18s ease;
         }
@@ -42,9 +42,7 @@ export default function NavbarCTA() {
           box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4), 0 8px 24px rgba(37, 99, 235, 0.25);
           color: #ffffff;
         }
-        .nav-cta:hover::before {
-          opacity: 1;
-        }
+        .nav-cta:hover::before { opacity: 1; }
         .nav-cta:active {
           transform: translateY(0);
           box-shadow: 0 1px 6px rgba(37, 99, 235, 0.3);

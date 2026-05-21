@@ -42,8 +42,8 @@ export default function NavbarMenu({
           display: flex;
           align-items: center;
           height: 100%;
-          /* gap: 2px + item padding: 0 11px = ~24px between text edges (≈ gap-6) */
-          gap: 2px;
+          /* gap:6px + item padding:0 14px = 34px between adjacent text labels */
+          gap: 6px;
           list-style: none;
           margin: 0;
           padding: 0;

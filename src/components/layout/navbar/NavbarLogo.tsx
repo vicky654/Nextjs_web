@@ -24,47 +24,48 @@ export default function NavbarLogo() {
 
       <style jsx>{`
         .nav-logo {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 9px;
+          gap: 10px;
           text-decoration: none;
           flex-shrink: 0;
           outline: none;
+          line-height: 1;
         }
         .nav-logo:focus-visible {
           outline: 2px solid rgba(59, 130, 246, 0.6);
-          border-radius: 6px;
+          border-radius: 8px;
         }
         .nav-logo__icon {
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
           flex-shrink: 0;
           display: flex;
           align-items: center;
           justify-content: center;
         }
         .nav-logo__icon svg {
-          width: 100%;
-          height: 100%;
+          width: 36px;
+          height: 36px;
+          display: block;
         }
         .nav-logo__text {
           display: flex;
           flex-direction: column;
           line-height: 1;
-          gap: 3px;
+          gap: 4px;
         }
         .nav-logo__brand {
-          font-size: 1rem;
+          font-size: 1.05rem;
           font-weight: 800;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.07em;
           background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
-        /* #64748b works on both the white pill AND the dark mobile drawer */
         .nav-logo__sub {
-          font-size: 0.56rem;
+          font-size: 0.58rem;
           font-weight: 600;
           letter-spacing: 0.18em;
           color: #64748b;
