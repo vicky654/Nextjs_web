@@ -14,8 +14,8 @@ interface NavbarItemProps {
 }
 
 /* Must stay in sync with NavbarContainer pill height */
-const PILL_H = 60;
-const PILL_H_MOBILE = 54;
+const PILL_H = 52;
+const PILL_H_MOBILE = 48;
 
 export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarItemProps) {
   const isActive =
@@ -57,10 +57,10 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
             <motion.span
               className="ni__caret"
               animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              transition={{ duration: 0.18, ease: 'easeInOut' }}
               aria-hidden="true"
             >
-              <ChevronDown size={13} strokeWidth={2.5} />
+              <ChevronDown size={12} strokeWidth={2.5} />
             </motion.span>
           </button>
 
@@ -77,8 +77,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
       <style jsx>{`
         /*
          * Explicit height matches the pill so that top:100% on the
-         * dropdown always lands exactly at the pill's bottom edge —
-         * no reliance on the fragile align-self:stretch chain.
+         * dropdown always lands exactly at the pill's bottom edge.
          */
         .ni {
           position: relative;
@@ -94,14 +93,14 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
         .ni__btn {
           display: flex;
           align-items: center;
-          height: 100%;
-          padding: 0 13px;
-          font-size: 0.9375rem;
+          height: 36px;
+          padding: 0 11px;
+          font-size: 0.875rem;
           font-weight: 500;
-          color: #4b5563;
+          color: #374151;
           text-decoration: none;
           white-space: nowrap;
-          letter-spacing: -0.01em;
+          letter-spacing: -0.005em;
           line-height: 1;
           border-radius: 8px;
           border: none;
@@ -111,7 +110,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           transition: color 0.15s ease, background 0.15s ease;
         }
 
-        /* ── Hover — clear blue signal ─────────────────────────── */
+        /* ── Hover — blue text + very subtle bg ───────────────── */
         .ni__a:hover,
         .ni__btn:hover,
         .ni--open .ni__btn {
@@ -125,24 +124,24 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           color: #2563eb;
           background: rgba(37, 99, 235, 0.06);
           outline: 2px solid rgba(37, 99, 235, 0.35);
-          outline-offset: -2px;
+          outline-offset: -1px;
         }
 
         /* ── Active state ──────────────────────────────────────── */
         .ni__a--active,
         .ni__btn--active {
-          color: #2563eb;
+          color: #1d4ed8;
           font-weight: 600;
         }
 
-        /* Blue gradient underline bar — sits 8px above pill bottom */
+        /* Gradient underline indicator for active tab */
         .ni__a--active::after,
         .ni__btn--active::after {
           content: '';
           position: absolute;
-          bottom: 8px;
-          left: 13px;
-          right: 13px;
+          bottom: 5px;
+          left: 11px;
+          right: 11px;
           height: 2px;
           background: linear-gradient(90deg, #2563eb, #0891b2);
           border-radius: 2px;
@@ -150,7 +149,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
 
         /* ── Dropdown caret ────────────────────────────────────── */
         .ni__btn {
-          gap: 4px;
+          gap: 3px;
         }
         .ni__caret {
           display: flex;
@@ -166,9 +165,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
         }
 
         @media (max-width: 640px) {
-          .ni {
-            height: ${PILL_H_MOBILE}px;
-          }
+          .ni { height: ${PILL_H_MOBILE}px; }
         }
       `}</style>
     </li>

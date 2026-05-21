@@ -42,16 +42,14 @@ export default function NavbarMenu({
           display: flex;
           align-items: center;
           height: 100%;
-          /* gap:6px + padding:0 13px per item = 32px between text edges */
-          gap: 6px;
+          /* gap: 2px + item padding: 0 11px = ~24px between text edges (≈ gap-6) */
+          gap: 2px;
           list-style: none;
           margin: 0;
           padding: 0;
         }
         @media (max-width: 1023px) {
-          .nav-menu {
-            display: none;
-          }
+          .nav-menu { display: none; }
         }
       `}</style>
     </nav>
