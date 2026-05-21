@@ -16,8 +16,8 @@ export default function NavbarMenu({
   pathname,
 }: NavbarMenuProps) {
   return (
-    <nav className="nav-menu" aria-label="Main navigation" role="navigation">
-      <ul className="nav-menu__list" role="menubar">
+    <nav className="navmenu" aria-label="Main navigation" role="navigation">
+      <ul className="navmenu-list" role="menubar">
         {items.map((item) => (
           <NavbarItem
             key={item.label}
@@ -29,8 +29,9 @@ export default function NavbarMenu({
         ))}
       </ul>
 
-      <style jsx>{`
-        .nav-menu {
+      {/* global — scoped styled-jsx doesn't apply with Turbopack */}
+      <style jsx global>{`
+        .navmenu {
           flex: 1;
           display: flex;
           align-items: center;
@@ -38,18 +39,17 @@ export default function NavbarMenu({
           height: 100%;
           min-width: 0;
         }
-        .nav-menu__list {
+        .navmenu-list {
           display: flex;
           align-items: center;
           height: 100%;
-          /* gap:6px + item padding:0 14px = 34px between adjacent text labels */
-          gap: 6px;
+          gap: 4px;
           list-style: none;
           margin: 0;
           padding: 0;
         }
         @media (max-width: 1023px) {
-          .nav-menu { display: none; }
+          .navmenu { display: none; }
         }
       `}</style>
     </nav>

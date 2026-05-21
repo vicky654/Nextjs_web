@@ -13,7 +13,6 @@ interface NavbarItemProps {
   pathname: string;
 }
 
-/* Must stay in sync with NavbarContainer pill height */
 const PILL_H = 62;
 const PILL_H_MOBILE = 54;
 
@@ -32,13 +31,13 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
 
   return (
     <li
-      className={`ni${hasChildren ? ' ni--dd' : ''}${isOpen ? ' ni--open' : ''}`}
+      className={`nli${hasChildren ? ' nli--dd' : ''}${isOpen ? ' nli--open' : ''}`}
       role="none"
     >
       {!hasChildren ? (
         <Link
           href={item.href}
-          className={`ni__a${isActive ? ' ni__a--active' : ''}`}
+          className={`nli-a${isActive ? ' nli-a--active' : ''}`}
           role="menuitem"
         >
           {item.label}
@@ -46,7 +45,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
       ) : (
         <>
           <button
-            className={`ni__btn${isActive ? ' ni__btn--active' : ''}`}
+            className={`nli-btn${isActive ? ' nli-btn--active' : ''}`}
             onClick={() => onToggle(isOpen ? null : item.label)}
             onKeyDown={handleKeyDown}
             aria-haspopup="menu"
@@ -55,7 +54,7 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           >
             {item.label}
             <motion.span
-              className="ni__caret"
+              className="nli-caret"
               animate={{ rotate: isOpen ? 180 : 0 }}
               transition={{ duration: 0.18, ease: 'easeInOut' }}
               aria-hidden="true"
@@ -74,12 +73,9 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
         </>
       )}
 
-      <style jsx>{`
-        /*
-         * Explicit height matches pill height so top:100% on dropdowns
-         * always resolves to the pill's exact bottom edge.
-         */
-        .ni {
+      {/* Use jsx global — scoped styled-jsx doesn't apply with Next.js Turbopack */}
+      <style jsx global>{`
+        .nli {
           position: relative;
           height: ${PILL_H}px;
           display: flex;
@@ -88,17 +84,17 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           flex-shrink: 0;
         }
 
-        /* ── Shared link / button base ─────────────────────────── */
-        .ni__a,
-        .ni__btn {
+        /* ── Shared base ──────────────────────────────────────── */
+        .nli-a,
+        .nli-btn {
           display: flex;
           align-items: center;
           height: 40px;
-          padding: 0 14px;
-          font-size: 0.9rem;
+          padding: 0 15px;
+          font-size: 0.95rem;
           font-weight: 500;
-          color: #374151;
-          text-decoration: none;
+          color: #374151 !important;
+          text-decoration: none !important;
           white-space: nowrap;
           letter-spacing: -0.01em;
           line-height: 1;
@@ -108,48 +104,48 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           cursor: pointer;
           outline: none;
           transition: color 0.15s ease, background 0.15s ease;
+          font-family: inherit;
         }
 
-        /* ── Hover ─────────────────────────────────────────────── */
-        .ni__a:hover,
-        .ni__btn:hover,
-        .ni--open .ni__btn {
-          color: #2563eb;
-          background: rgba(37, 99, 235, 0.06);
+        /* ── Hover / open ─────────────────────────────────────── */
+        .nli-a:hover,
+        .nli-btn:hover,
+        .nli--open .nli-btn {
+          color: #2563eb !important;
+          background: rgba(37, 99, 235, 0.07);
+          text-decoration: none !important;
         }
 
-        /* ── Focus ─────────────────────────────────────────────── */
-        .ni__a:focus-visible,
-        .ni__btn:focus-visible {
-          color: #2563eb;
+        /* ── Focus ────────────────────────────────────────────── */
+        .nli-a:focus-visible,
+        .nli-btn:focus-visible {
+          color: #2563eb !important;
           background: rgba(37, 99, 235, 0.07);
           outline: 2px solid rgba(37, 99, 235, 0.35);
           outline-offset: -1px;
         }
 
-        /* ── Active ────────────────────────────────────────────── */
-        .ni__a--active,
-        .ni__btn--active {
-          color: #1d4ed8;
+        /* ── Active ───────────────────────────────────────────── */
+        .nli-a--active,
+        .nli-btn--active {
+          color: #1d4ed8 !important;
           font-weight: 600;
         }
-
-        /* Gradient underline tab indicator */
-        .ni__a--active::after,
-        .ni__btn--active::after {
+        .nli-a--active::after,
+        .nli-btn--active::after {
           content: '';
           position: absolute;
           bottom: 6px;
-          left: 14px;
-          right: 14px;
+          left: 15px;
+          right: 15px;
           height: 2px;
           background: linear-gradient(90deg, #2563eb, #0891b2);
           border-radius: 2px;
         }
 
-        /* ── Caret ─────────────────────────────────────────────── */
-        .ni__btn { gap: 4px; }
-        .ni__caret {
+        /* ── Caret ────────────────────────────────────────────── */
+        .nli-btn { gap: 5px; }
+        .nli-caret {
           display: flex;
           align-items: center;
           color: #9ca3af;
@@ -157,11 +153,11 @@ export default function NavbarItem({ item, isOpen, onToggle, pathname }: NavbarI
           margin-top: 1px;
           transition: color 0.15s ease;
         }
-        .ni__btn:hover .ni__caret,
-        .ni--open .ni__caret { color: #2563eb; }
+        .nli-btn:hover .nli-caret,
+        .nli--open .nli-caret { color: #2563eb; }
 
         @media (max-width: 640px) {
-          .ni { height: ${PILL_H_MOBILE}px; }
+          .nli { height: ${PILL_H_MOBILE}px; }
         }
       `}</style>
     </li>

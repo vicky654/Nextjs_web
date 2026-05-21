@@ -14,43 +14,45 @@ const variants = {
 
 export default function NavbarDropdown({ items }: NavbarDropdownProps) {
   return (
-    <motion.div
-      className="nav-dd"
-      role="menu"
-      variants={variants}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {items.map((item) => {
-        const Icon = item.icon;
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="nav-dd__item"
-            role="menuitem"
-          >
-            {Icon && (
-              <span className="nav-dd__icon" aria-hidden="true">
-                <Icon size={15} strokeWidth={1.8} />
-              </span>
-            )}
-            <span className="nav-dd__body">
-              <span className="nav-dd__label">{item.label}</span>
-              {item.description && (
-                <span className="nav-dd__desc">{item.description}</span>
+    <>
+      <motion.div
+        className="nav-dd"
+        role="menu"
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {items.map((item) => {
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="nav-dd-item"
+              role="menuitem"
+            >
+              {Icon && (
+                <span className="nav-dd-icon" aria-hidden="true">
+                  <Icon size={15} strokeWidth={1.8} />
+                </span>
               )}
-            </span>
-          </Link>
-        );
-      })}
+              <span className="nav-dd-body">
+                <span className="nav-dd-label">{item.label}</span>
+                {item.description && (
+                  <span className="nav-dd-desc">{item.description}</span>
+                )}
+              </span>
+            </Link>
+          );
+        })}
+      </motion.div>
 
-      <style jsx>{`
+      <style jsx global>{`
         .nav-dd {
           position: absolute;
-          top: calc(100% + 12px);
+          top: calc(100% + 10px);
           left: 50%;
           transform: translateX(-50%);
           min-width: 300px;
@@ -59,62 +61,59 @@ export default function NavbarDropdown({ items }: NavbarDropdownProps) {
           border-radius: 16px;
           padding: 6px;
           box-shadow:
-            0 4px 6px rgba(0, 0, 0, 0.04),
-            0 16px 48px rgba(0, 0, 0, 0.1),
-            0 32px 80px rgba(0, 0, 0, 0.06);
+            0 4px 6px rgba(0,0,0,0.04),
+            0 16px 48px rgba(0,0,0,0.1),
+            0 32px 80px rgba(0,0,0,0.06);
           z-index: 1001;
-          overflow: visible;
         }
-        .nav-dd__item {
+        .nav-dd-item {
           display: flex;
           align-items: flex-start;
           gap: 12px;
           padding: 10px 12px;
           border-radius: 10px;
-          text-decoration: none;
+          text-decoration: none !important;
           transition: background 0.12s ease;
           outline: none;
         }
-        .nav-dd__item:hover {
+        .nav-dd-item:hover {
           background: #f8fafc;
         }
-        .nav-dd__item:focus-visible {
+        .nav-dd-item:focus-visible {
           background: #eff6ff;
-          outline: 2px solid rgba(37, 99, 235, 0.35);
+          outline: 2px solid rgba(37,99,235,0.35);
         }
-        .nav-dd__icon {
+        .nav-dd-icon {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 32px;
           height: 32px;
           border-radius: 8px;
-          background: rgba(37, 99, 235, 0.08);
+          background: rgba(37,99,235,0.08);
           color: #2563eb;
           flex-shrink: 0;
           margin-top: 1px;
         }
-        .nav-dd__body {
+        .nav-dd-body {
           display: flex;
           flex-direction: column;
           gap: 3px;
           min-width: 0;
         }
-        .nav-dd__label {
+        .nav-dd-label {
           font-size: 0.875rem;
           font-weight: 500;
-          color: #111827;
+          color: #111827 !important;
           line-height: 1.3;
         }
-        .nav-dd__item:hover .nav-dd__label {
-          color: #2563eb;
-        }
-        .nav-dd__desc {
+        .nav-dd-item:hover .nav-dd-label { color: #2563eb !important; }
+        .nav-dd-desc {
           font-size: 0.74rem;
           color: #6b7280;
           line-height: 1.4;
         }
       `}</style>
-    </motion.div>
+    </>
   );
 }

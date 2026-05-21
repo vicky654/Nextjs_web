@@ -3,75 +3,57 @@ import Link from 'next/link';
 
 export default function NavbarLogo() {
   return (
-    <Link href="/" className="nav-logo" aria-label="DPDP Consultants – Home">
-      <div className="nav-logo__icon">
-        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="18" cy="18" r="17" stroke="url(#lg1)" strokeWidth="2" />
-          <path d="M9 13h7c2.8 0 5 2.2 5 5s-2.2 5-5 5H9V13z" fill="url(#lg1)" />
-          <rect x="23" y="13" width="4" height="10" rx="1" fill="url(#lg1)" opacity="0.55" />
+    <Link
+      href="/"
+      aria-label="DPDP Consultants – Home"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 10,
+        textDecoration: 'none',
+        flexShrink: 0,
+        outline: 'none',
+        lineHeight: 1,
+      }}
+    >
+      {/* Icon */}
+      <div style={{ width: 36, height: 36, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="18" cy="18" r="17" stroke="url(#nlg1)" strokeWidth="2" />
+          <path d="M9 13h7c2.8 0 5 2.2 5 5s-2.2 5-5 5H9V13z" fill="url(#nlg1)" />
+          <rect x="23" y="13" width="4" height="10" rx="1" fill="url(#nlg1)" opacity="0.55" />
           <defs>
-            <linearGradient id="lg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <linearGradient id="nlg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
               <stop stopColor="#3b82f6" />
               <stop offset="1" stopColor="#06b6d4" />
             </linearGradient>
           </defs>
         </svg>
       </div>
-      <div className="nav-logo__text">
-        <span className="nav-logo__brand">DPDP</span>
-        <span className="nav-logo__sub">Consultants</span>
-      </div>
 
-      <style jsx>{`
-        .nav-logo {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          text-decoration: none;
-          flex-shrink: 0;
-          outline: none;
-          line-height: 1;
-        }
-        .nav-logo:focus-visible {
-          outline: 2px solid rgba(59, 130, 246, 0.6);
-          border-radius: 8px;
-        }
-        .nav-logo__icon {
-          width: 36px;
-          height: 36px;
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .nav-logo__icon svg {
-          width: 36px;
-          height: 36px;
-          display: block;
-        }
-        .nav-logo__text {
-          display: flex;
-          flex-direction: column;
-          line-height: 1;
-          gap: 4px;
-        }
-        .nav-logo__brand {
-          font-size: 1.05rem;
-          font-weight: 800;
-          letter-spacing: 0.07em;
-          background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        .nav-logo__sub {
-          font-size: 0.58rem;
-          font-weight: 600;
-          letter-spacing: 0.18em;
-          color: #64748b;
-          text-transform: uppercase;
-        }
-      `}</style>
+      {/* Text */}
+      <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1, gap: 3 }}>
+        <span style={{
+          fontSize: '1.05rem',
+          fontWeight: 800,
+          letterSpacing: '0.07em',
+          background: 'linear-gradient(135deg, #2563eb 0%, #0891b2 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}>
+          DPDP
+        </span>
+        <span style={{
+          fontSize: '0.57rem',
+          fontWeight: 600,
+          letterSpacing: '0.16em',
+          color: '#64748b',
+          textTransform: 'uppercase',
+        }}>
+          Consultants
+        </span>
+      </div>
     </Link>
   );
 }
